@@ -107,6 +107,9 @@ export default function Pricing() {
           gap: "64px",
         }}
       >
+        {/* Border laser light lines */}
+        <div className="bg-laser-line-left" aria-hidden="true" />
+        <div className="bg-laser-line-right" aria-hidden="true" />
         {/* Header */}
         <ScrollReveal>
           <SectionTitle

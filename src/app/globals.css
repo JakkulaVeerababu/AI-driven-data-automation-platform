@@ -370,7 +370,44 @@ img, svg { display: block; }
   padding: 0 24px;
   border-left: 1px solid rgba(255, 255, 255, 0.03);
   border-right: 1px solid rgba(255, 255, 255, 0.03);
+  position: relative;
 }
+
+/* ─── Laser Grid Borders ─────────────────────────────────── */
+.bg-laser-line-left,
+.bg-laser-line-right {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 250px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 200, 1, 0.55) 45%,
+    var(--gold) 50%,
+    rgba(255, 200, 1, 0.55) 55%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 15;
+  animation: laser-travel 8s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+  will-change: transform;
+}
+.bg-laser-line-left {
+  left: -1px;
+}
+.bg-laser-line-right {
+  right: -1px;
+  animation-delay: 4s;
+}
+
+@keyframes laser-travel {
+  0% { transform: translateY(-250px); opacity: 0; }
+  5% { opacity: 1; }
+  95% { opacity: 1; }
+  100% { transform: translateY(110%); opacity: 0; }
+}
+
 @media (min-width: 640px) {
   .nm-container { padding: 0 32px; }
 }
@@ -468,6 +505,31 @@ img, svg { display: block; }
 .pointer-glow-card:hover::before {
   opacity: 1;
 }
+
+/* ─── Shimmering Gradient Border Glow ────────────────────── */
+.gradient-border-glow {
+  border: 1px solid transparent !important;
+  background: 
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(120deg, rgba(255,255,255,0.08), rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.08)) border-box !important;
+  background-size: 200% auto !important;
+  background-position: 0% center !important;
+  transition: all 0.3s var(--ease);
+}
+.gradient-border-glow:hover {
+  background: 
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(120deg, var(--gold), var(--orange) 50%, var(--gold)) border-box !important;
+  background-size: 200% auto !important;
+  animation: border-shimmer 2.5s linear infinite !important;
+  box-shadow: 0 0 30px rgba(255,200,1,0.08) !important;
+}
+
+@keyframes border-shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: -200% center; }
+}
+
 
 
 /* Gold gradient border effect */

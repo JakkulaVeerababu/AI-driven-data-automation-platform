@@ -52,6 +52,9 @@ export default function Features() {
           gap: "64px",
         }}
       >
+        {/* Border laser light lines */}
+        <div className="bg-laser-line-left" aria-hidden="true" />
+        <div className="bg-laser-line-right" aria-hidden="true" />
         <ScrollReveal>
           <SectionTitle
             id="features-title"

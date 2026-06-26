@@ -82,6 +82,9 @@ export default function Hero() {
       />
 
       <div className="nm-container" style={{ position: "relative", zIndex: 10 }}>
+        {/* Border laser light lines */}
+        <div className="bg-laser-line-left" aria-hidden="true" />
+        <div className="bg-laser-line-right" aria-hidden="true" />
         {/* Responsive layout configuration styling */}
         <style>{`
           .hero-split-grid {
@@ -233,6 +236,25 @@ export default function Hero() {
           {/* Right Column (Mock IDE Dashboard Console) */}
           <div
             className="anim-blur-in delay-300"
+            onMouseMove={(e) => {
+              const el = e.currentTarget;
+              const rect = el.getBoundingClientRect();
+              const x = e.clientX - rect.left - rect.width / 2;
+              const y = e.clientY - rect.top - rect.height / 2;
+              const rotX = -(y / rect.height) * 8; // Max 8 degrees vertical tilt
+              const rotY = (x / rect.width) * 8;  // Max 8 degrees horizontal tilt
+              el.style.setProperty("--rotate-x", `${rotX}deg`);
+              el.style.setProperty("--rotate-y", `${rotY}deg`);
+              el.style.borderColor = "rgba(255, 200, 1, 0.22)";
+              el.style.boxShadow = "0 0 0 1px rgba(255,255,255,0.04), 0 32px 80px rgba(0,0,0,0.8), 0 0 60px rgba(255,200,1,0.12)";
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget;
+              el.style.setProperty("--rotate-x", "0deg");
+              el.style.setProperty("--rotate-y", "0deg");
+              el.style.borderColor = "rgba(255,255,255,0.08)";
+              el.style.boxShadow = "0 0 0 1px rgba(255,255,255,0.04), 0 32px 80px rgba(0,0,0,0.8), 0 0 60px rgba(255,200,1,0.04)";
+            }}
             style={{
               width: "100%",
               borderRadius: "20px",
@@ -242,6 +264,9 @@ export default function Hero() {
               WebkitBackdropFilter: "blur(24px)",
               overflow: "hidden",
               boxShadow: "0 0 0 1px rgba(255,255,255,0.04), 0 32px 80px rgba(0,0,0,0.8), 0 0 60px rgba(255,200,1,0.04)",
+              transform: "perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg))",
+              transformStyle: "preserve-3d" as const,
+              transition: "transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease",
             }}
           >
             {/* Window bar */}
