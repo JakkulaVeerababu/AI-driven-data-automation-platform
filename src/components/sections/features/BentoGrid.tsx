@@ -80,7 +80,7 @@ export default function BentoGrid({ activeIndex, setActiveIndex }: BentoGridProp
   );
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "24px" }}>
+    <div className="bento-grid">
       <style>{`
         .bento-grid {
           display: grid !important;
@@ -115,8 +115,6 @@ export default function BentoGrid({ activeIndex, setActiveIndex }: BentoGridProp
           outline-offset: 3px;
         }
       `}</style>
-
-      <div className="bento-grid" style={{ display: "contents" }}>
         {FEATURES.map((item, idx) => {
           const isActive = activeIndex === idx;
 
@@ -306,7 +304,6 @@ export default function BentoGrid({ activeIndex, setActiveIndex }: BentoGridProp
             </div>
           );
         })}
-      </div>
     </div>
   );
 }

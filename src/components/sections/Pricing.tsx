@@ -133,36 +133,33 @@ export default function Pricing() {
         </ScrollReveal>
 
         {/* Cards Grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr",
-            gap: "24px",
-            alignItems: "stretch",
-          }}
-        >
+        <div className="pricing-cards-grid">
           <style>{`
+            .pricing-cards-grid {
+              display: grid;
+              grid-template-columns: 1fr;
+              gap: 24px;
+              align-items: stretch;
+            }
             @media (min-width: 768px) {
               .pricing-cards-grid {
                 grid-template-columns: repeat(3, 1fr) !important;
               }
             }
           `}</style>
-          <div className="pricing-cards-grid" style={{ display: "contents" }}>
-            {PLANS.map((plan, idx) => (
-              <ScrollReveal key={plan.id} delay={idx * 100} style={{ height: "100%" }}>
-                <PricingCard
-                  name={plan.name}
-                  basePriceUSD={plan.basePriceUSD}
-                  description={plan.description}
-                  features={plan.features}
-                  isPopular={plan.isPopular}
-                  highlight={plan.highlight}
-                  className="h-full"
-                />
-              </ScrollReveal>
-            ))}
-          </div>
+          {PLANS.map((plan, idx) => (
+            <ScrollReveal key={plan.id} delay={idx * 100} style={{ height: "100%" }}>
+              <PricingCard
+                name={plan.name}
+                basePriceUSD={plan.basePriceUSD}
+                description={plan.description}
+                features={plan.features}
+                isPopular={plan.isPopular}
+                highlight={plan.highlight}
+                className="h-full"
+              />
+            </ScrollReveal>
+          ))}
         </div>
 
         {/* Bottom trust strip */}
