@@ -1,7 +1,35 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ScrollReveal from "../shared/ScrollReveal";
+
+function CommandTyper() {
+  const commandText = "npx @neuralmesh/cli provision-agent --region global";
+  const [displayedText, setDisplayedText] = useState("");
+
+  useEffect(() => {
+    let index = 0;
+    const startTimeout = setTimeout(() => {
+      const interval = setInterval(() => {
+        if (index < commandText.length) {
+          setDisplayedText(commandText.substring(0, index + 1));
+          index++;
+        } else {
+          clearInterval(interval);
+        }
+      }, 55);
+      return () => clearInterval(interval);
+    }, 450);
+
+    return () => clearTimeout(startTimeout);
+  }, []);
+
+  return (
+    <span style={{ color: "rgba(240,246,243,0.85)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+      {displayedText}
+    </span>
+  );
+}
 
 export default function CTA() {
   const [copied, setCopied] = useState(false);
@@ -97,9 +125,7 @@ export default function CTA() {
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", flex: 1, overflow: "hidden" }}>
                   <span style={{ color: "#FFC801", flexShrink: 0 }}>$</span>
-                  <span style={{ color: "rgba(240,246,243,0.85)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                    npx @neuralmesh/cli provision-agent --region global
-                  </span>
+                  <CommandTyper />
                   <span className="cli-cursor" />
                 </div>
                 <button

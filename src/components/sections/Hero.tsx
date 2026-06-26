@@ -1,7 +1,72 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
+
+const LOG_MESSAGES = [
+  "Initializing telemetry analyzer...",
+  "Context window set to 131,072 tokens",
+  "Regional failover loops verified: OK",
+  "Active inference stream connected: 0.42ms",
+  "Sandbox memory isolation: grade-aa",
+  "Worker threads synchronized: 16 active",
+  "Telemetry buffer flushed to region: global-mesh",
+  "Model query optimized via AVX2 instruction sets",
+  "Zero-fault cluster nodes status: healthy",
+  "Securing memory boundary for node core X89",
+  "Compiling metrics telemetry loop data",
+];
+
+function LiveTelemetryLogs() {
+  const [logs, setLogs] = useState<string[]>([]);
+
+  useEffect(() => {
+    const formatTime = (d: Date) => d.toLocaleTimeString("en-US", { hour12: false }).split(" ")[0];
+    const now = new Date();
+    
+    setLogs([
+      `[${formatTime(new Date(now.getTime() - 6000))}] Node agi-node-418 provisioned in global-mesh.`,
+      `[${formatTime(new Date(now.getTime() - 3000))}] Isolated sandbox compliance grade-aa active.`,
+      `[${formatTime(now)}] Telemetry telemetry-analyzer worker thread active.`
+    ]);
+
+    const interval = setInterval(() => {
+      setLogs(prev => {
+        const nextMsg = LOG_MESSAGES[Math.floor(Math.random() * LOG_MESSAGES.length)];
+        const time = formatTime(new Date());
+        const nextLine = `[${time}] ${nextMsg}`;
+        // Fallback for safety in case state initializes late
+        return [...(prev.length >= 3 ? prev.slice(1) : prev), nextLine];
+      });
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div style={{
+      fontFamily: "var(--font-mono)",
+      fontSize: "9px",
+      color: "rgba(240,246,243,0.4)",
+      background: "rgba(0,0,0,0.35)",
+      border: "1px solid rgba(255,255,255,0.04)",
+      borderRadius: "8px",
+      padding: "8px 12px",
+      marginTop: "12px",
+      display: "flex",
+      flexDirection: "column",
+      gap: "4px",
+      minHeight: "54px",
+      userSelect: "none",
+    }}>
+      {logs.map((log, idx) => (
+        <div key={idx} style={{ display: "flex", gap: "8px", opacity: idx === logs.length - 1 ? 1 : idx === logs.length - 2 ? 0.65 : 0.35, transition: "all 0.3s" }}>
+          <span style={{ color: "#FF9932" }}>&gt;&gt;</span>
+          <span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{log}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function TechPill({ icon, label, spin = false }: { icon: string; label: string; spin?: boolean }) {
   return (
@@ -509,6 +574,9 @@ export default function Hero() {
                       <span>{t}</span>
                     </div>
                   ))}
+
+                  {/* Live scrolling logs */}
+                  <LiveTelemetryLogs />
 
                   <div
                     style={{
