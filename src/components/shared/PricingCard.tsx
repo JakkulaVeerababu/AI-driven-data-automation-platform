@@ -72,23 +72,7 @@ export default function PricingCard({
   };
 
   return (
-    <Card
-      variant="bordered"
-      gradientBorder={isPopular}
-      style={cardStyle}
-      className={`group ${className}`}
-    >
-      {/* Popular glow overlay */}
-      {isPopular && (
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: "radial-gradient(ellipse at 50% 0%, rgba(255,200,1,0.06) 0%, transparent 65%)",
-          }}
-          aria-hidden="true"
-        />
-      )}
-
+    <div style={{ position: "relative", height: "100%" }}>
       {/* Popular badge pill */}
       {isPopular && (
         <div
@@ -103,6 +87,22 @@ export default function PricingCard({
           <Badge variant="amber">Most Popular</Badge>
         </div>
       )}
+      <Card
+        variant="bordered"
+        gradientBorder={isPopular}
+        style={cardStyle}
+        className={`group ${className}`}
+      >
+        {/* Popular glow overlay */}
+        {isPopular && (
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: "radial-gradient(ellipse at 50% 0%, rgba(255,200,1,0.06) 0%, transparent 65%)",
+            }}
+            aria-hidden="true"
+          />
+        )}
 
       <div
         style={{
@@ -223,5 +223,6 @@ export default function PricingCard({
         </Button>
       </div>
     </Card>
+    </div>
   );
 }
