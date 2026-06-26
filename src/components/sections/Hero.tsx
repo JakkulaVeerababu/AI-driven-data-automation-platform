@@ -208,27 +208,44 @@ export default function Hero() {
         <div className="hero-split-grid">
           {/* Left Column (Main Brand Copy & CTAs) */}
           <div className="hero-left-col">
-            {/* Top trust badge */}
-            <div className="anim-fade-up delay-0" style={{ marginBottom: "18px" }}>
-              <div className="nm-badge nm-badge-gold" style={{ gap: "8px" }}>
-                <span
-                  style={{
-                    width: "6px",
-                    height: "6px",
-                    borderRadius: "50%",
-                    background: "#FFC801",
-                    animation: "pulse 2s ease-in-out infinite",
-                    display: "inline-block",
-                  }}
-                />
-                NEW V2.4 — AI Sandbox Nodes · ★ 4.9/5
+            {/* Top trust badge with particle orbit */}
+            <div className="anim-fade-up delay-0" style={{ marginBottom: "20px" }}>
+              <div style={{ position: "relative", display: "inline-flex", alignItems: "center" }}>
+                <div className="nm-badge nm-badge-gold" style={{ gap: "8px", paddingLeft: "16px", paddingRight: "16px", fontSize: "11px" }}>
+                  <span
+                    style={{
+                      width: "7px",
+                      height: "7px",
+                      borderRadius: "50%",
+                      background: "#FFC801",
+                      animation: "pulse-scale 2s ease-in-out infinite",
+                      display: "inline-block",
+                      boxShadow: "0 0 8px rgba(255,200,1,0.7)",
+                    }}
+                  />
+                  NEW V2.4 — Trustworthy AI Sandbox Nodes · ★ 4.9/5
+                </div>
               </div>
             </div>
 
-            {/* Main heading */}
+            {/* Main heading — word-by-word reveal */}
             <h1 id="hero-title" className="hero-split-title anim-blur-in delay-60">
-              Orchestrate Autonomous AI<br />
-              Workflows on a <span className="text-shimmer">Secure Mesh.</span>
+              <span style={{ display: "block", overflow: "hidden" }}>
+                <span className="nm-hero-title-word" style={{ animationDelay: "80ms" }}>
+                  Orchestrate{" "}
+                </span>
+                <span className="nm-hero-title-word" style={{ animationDelay: "160ms" }}>
+                  Autonomous AI
+                </span>
+              </span>
+              <span style={{ display: "block", overflow: "hidden", marginTop: "4px" }}>
+                <span className="nm-hero-title-word" style={{ animationDelay: "240ms" }}>
+                  Workflows on a{" "}
+                </span>
+                <span className="nm-hero-title-word text-gradient-animated" style={{ animationDelay: "320ms" }}>
+                  Secure Mesh.
+                </span>
+              </span>
             </h1>
 
             {/* Subtitle */}
@@ -251,8 +268,8 @@ export default function Hero() {
             >
               <a href="#pricing" style={{ textDecoration: "none" }}>
                 <button
-                  className="nm-btn nm-btn-primary nm-btn-lg"
-                  style={{ height: "44px", padding: "0 22px", fontSize: "13.5px" }}
+                  className="nm-btn nm-btn-primary nm-btn-lg neon-gold"
+                  style={{ height: "46px", padding: "0 26px", fontSize: "13.5px", borderRadius: "14px" }}
                 >
                   Provision Node Free
                   <svg
@@ -272,14 +289,14 @@ export default function Hero() {
               <a href="#features" style={{ textDecoration: "none" }}>
                 <button
                   className="nm-btn nm-btn-secondary nm-btn-lg"
-                  style={{ height: "44px", padding: "0 22px", fontSize: "13.5px" }}
+                  style={{ height: "46px", padding: "0 26px", fontSize: "13.5px", borderRadius: "14px" }}
                 >
                   Explore Telemetry
                 </button>
               </a>
             </div>
 
-            {/* Tech pills */}
+            {/* Tech pills — premium node indicators */}
             <div
               ref={parallaxRef}
               className="hero-tech-pills-wrapper anim-fade-up delay-240"
@@ -288,7 +305,7 @@ export default function Hero() {
                 flexWrap: "wrap",
                 justifyContent: "center",
                 gap: "8px",
-                marginTop: "24px",
+                marginTop: "28px",
                 transition: "transform 250ms cubic-bezier(0.16,1,0.3,1)",
               }}
             >

@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import ScrollReveal from "../shared/ScrollReveal";
-import StatisticCard from "../shared/StatisticCard";
 import TestimonialCard from "../shared/TestimonialCard";
+
 
 const STATS = [
   { value: "0.42ms",  label: "Inference Latency",     sub: "Industry-leading AI agent pipeline speed" },
@@ -72,22 +72,62 @@ export default function SocialProof() {
 
         {/* Stats grid */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px" }}>
-          <style>{`@media(min-width:1024px){.stats-grid{grid-template-columns:repeat(4,1fr)!important}}`}</style>
+          <style>{`
+            @media(min-width:1024px){.stats-grid{grid-template-columns:repeat(4,1fr)!important}}
+            .stat-card-premium {
+              background: rgba(16,30,44,0.8);
+              border: 1px solid rgba(255,255,255,0.07);
+              border-radius: 20px;
+              padding: 28px 24px;
+              position: relative;
+              overflow: hidden;
+              backdrop-filter: blur(12px);
+              transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+            }
+            .stat-card-premium::before {
+              content: "";
+              position: absolute;
+              top: 0; left: 10%; right: 10%;
+              height: 1px;
+              background: linear-gradient(90deg, transparent, rgba(255,200,1,0.3), transparent);
+            }
+            .stat-card-premium:hover {
+              border-color: rgba(255,200,1,0.25);
+              transform: translateY(-6px) scale(1.02);
+              box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 40px rgba(255,200,1,0.06);
+            }
+          `}</style>
           <div className="stats-grid" style={{ display: "contents" }}>
             {STATS.map((s, i) => (
-              <ScrollReveal key={i} delay={i * 70}>
-                <StatisticCard
-                  value={s.value}
-                  label={s.label}
-                  sublabel={s.sub}
-                />
+              <ScrollReveal key={i} delay={i * 80}>
+                <div className="stat-card-premium">
+                  <div style={{
+                    fontSize: "clamp(28px, 3.5vw, 38px)",
+                    fontWeight: 800,
+                    fontFamily: "var(--font-mono)",
+                    letterSpacing: "-0.05em",
+                    lineHeight: 1,
+                    background: "linear-gradient(135deg, #fff 30%, rgba(255,200,1,0.85))",
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    marginBottom: "10px",
+                  }}>{s.value}</div>
+                  <div style={{ fontSize: "13px", fontWeight: 700, color: "#fff", marginBottom: "6px" }}>{s.label}</div>
+                  <div style={{ fontSize: "11px", color: "rgba(240,246,243,0.45)", lineHeight: 1.5 }}>{s.sub}</div>
+                  {/* Corner accent */}
+                  <div style={{ position: "absolute", top: "16px", right: "16px", width: "8px", height: "8px", borderRadius: "50%", background: "#FFC801", opacity: 0.6, animation: "pulse-scale 3s ease-in-out infinite", animationDelay: `${i * 0.5}s` }} />
+                </div>
               </ScrollReveal>
             ))}
           </div>
         </div>
 
+        {/* Animated scan-line divider */}
+        <div className="scan-line-divider" style={{ margin: "8px 0" }} />
+
         {/* Testimonials */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "40px", paddingTop: "40px", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "40px", paddingTop: "32px" }}>
           <style>{`@media(min-width:1024px){.testi-grid{grid-template-columns:1fr 2fr!important}}`}</style>
           <div className="testi-grid" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "40px" }}>
             {/* Left */}

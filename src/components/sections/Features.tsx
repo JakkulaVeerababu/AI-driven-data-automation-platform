@@ -49,7 +49,7 @@ export default function Features() {
           zIndex: 10,
           display: "flex",
           flexDirection: "column",
-          gap: "64px",
+          gap: "48px",
         }}
       >
         {/* Border laser light lines */}
@@ -64,6 +64,9 @@ export default function Features() {
             subtitle="A modular, distributed platform built for AI engineers who require sub-millisecond execution speeds, telemetry pipelines, and strict sandbox compliance layers."
           />
         </ScrollReveal>
+
+        {/* Animated scan-line divider */}
+        <div className="scan-line-divider" style={{ margin: "-16px 0" }} />
 
         {isMobile ? (
           <ScrollReveal delay={80}>
