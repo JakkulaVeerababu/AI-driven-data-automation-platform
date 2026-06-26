@@ -29,7 +29,7 @@ function FeatureCard({
       style={style}
       className={`flex flex-col justify-between p-6 hover:border-forsythia/20 hover:scale-[1.01] ${className}`}
     >
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 relative z-10">
         {/* Header Icon */}
         {iconPath && (
           <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-nocturnal-expedition text-forsythia border border-mystic-mint/10">
@@ -45,11 +45,15 @@ function FeatureCard({
       </div>
 
       {/* Dynamic graphic children mock */}
-      {children}
+      {children && (
+        <div className="relative z-10 w-full">
+          {children}
+        </div>
+      )}
 
       {/* Bottom tags */}
       {(tagLeft || tagRight) && (
-        <div className="flex items-center justify-between pt-6 border-t border-mystic-mint/10 text-3xs font-mono uppercase tracking-wider text-forsythia font-bold">
+        <div className="flex items-center justify-between pt-6 border-t border-mystic-mint/10 text-3xs font-mono uppercase tracking-wider text-forsythia font-bold relative z-10">
           <span>{tagLeft || ""}</span>
           <span className="text-mystic-mint">{tagRight || ""}</span>
         </div>

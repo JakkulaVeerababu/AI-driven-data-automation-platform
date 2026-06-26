@@ -368,6 +368,8 @@ img, svg { display: block; }
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 24px;
+  border-left: 1px solid rgba(255, 255, 255, 0.03);
+  border-right: 1px solid rgba(255, 255, 255, 0.03);
 }
 @media (min-width: 640px) {
   .nm-container { padding: 0 32px; }
@@ -443,6 +445,30 @@ img, svg { display: block; }
   position: relative;
   overflow: hidden;
 }
+
+/* ─── Pointer Glow Cards ─────────────────────────────────── */
+.pointer-glow-card {
+  position: relative;
+}
+.pointer-glow-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    rgba(255, 200, 1, 0.05),
+    transparent 50%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease);
+  z-index: 1;
+}
+.pointer-glow-card:hover::before {
+  opacity: 1;
+}
+
 
 /* Gold gradient border effect */
 .nm-card-gold {

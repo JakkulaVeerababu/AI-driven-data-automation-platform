@@ -30,17 +30,17 @@ export default function TestimonialCard({
       />
 
       {/* Quote mark */}
-      <div className="text-3xl text-forsythia/20 font-serif leading-none select-none" aria-hidden="true">
+      <div className="text-3xl text-forsythia/20 font-serif leading-none select-none relative z-10" aria-hidden="true">
         &ldquo;
       </div>
 
       {/* Quote text */}
-      <blockquote className="text-xs text-arctic-powder/70 leading-relaxed flex-1">
+      <blockquote className="text-xs text-arctic-powder/70 leading-relaxed flex-1 relative z-10">
         {quote}
       </blockquote>
 
       {/* Author row */}
-      <div className="flex items-center justify-between gap-4 border-t border-white/6 pt-4">
+      <div className="flex items-center justify-between gap-4 border-t border-white/6 pt-4 relative z-10">
         <div className="flex items-center gap-3 min-w-0">
           {/* Avatar placeholder */}
           <div className="h-8 w-8 rounded-full bg-gradient-to-br from-nocturnal-expedition to-mystic-mint/30 shrink-0 flex items-center justify-center text-xs font-bold text-white">
