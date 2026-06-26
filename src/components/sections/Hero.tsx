@@ -126,7 +126,7 @@ export default function Hero() {
       className="nm-hero"
       aria-labelledby="hero-title"
       aria-describedby="hero-desc"
-      style={{ minHeight: "85vh", padding: "112px 0 64px" }}
+      style={{ minHeight: "80vh", padding: "88px 0 48px" }}
     >
       <div className="absolute inset-0 bg-grid bg-grid-fade pointer-events-none" aria-hidden="true" />
       {/* Aurora blobs */}
@@ -185,7 +185,7 @@ export default function Hero() {
             .hero-split-grid {
               grid-template-columns: 1.15fr 1fr !important;
               text-align: left !important;
-              gap: 64px !important;
+              gap: 44px !important;
             }
             .hero-left-col {
               align-items: flex-start !important;
