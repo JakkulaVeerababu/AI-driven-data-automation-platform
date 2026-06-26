@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ScrollReveal from "../shared/ScrollReveal";
 
 const FAQS = [
   { q: "What is the primary tech stack for this battle submission?", a: "The project is architected with Next.js (App Router), TypeScript, and Tailwind CSS v4. We use native CSS and CSS variables for theming, transitions, and accessibility compliance — avoiding heavy animation or widget packages entirely.", tag: "Architecture" },
@@ -26,7 +27,7 @@ export default function FAQ() {
       <div className="nm-container" style={{ position: "relative", zIndex: 10, maxWidth: "760px" }}>
 
         {/* Header */}
-        <div className="reveal-on-scroll" style={{ textAlign: "center", marginBottom: "56px" }}>
+        <ScrollReveal style={{ textAlign: "center", marginBottom: "56px" }}>
           <div className="nm-badge nm-badge-gold" style={{ marginBottom: "20px", display: "inline-flex" }}>
             Frequently Asked Questions
           </div>
@@ -36,11 +37,11 @@ export default function FAQ() {
           <p className="nm-section-sub" style={{ margin: "0 auto" }}>
             Quick, precise responses to essential technical questions about the project&apos;s foundation.
           </p>
-        </div>
+        </ScrollReveal>
 
         {/* Accordion */}
-        <div
-          className="reveal-on-scroll"
+        <ScrollReveal
+          delay={100}
           style={{ border: "1px solid rgba(255,255,255,0.07)", borderRadius: "20px", overflow: "hidden", background: "rgba(12,24,37,0.5)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }}
         >
           {FAQS.map((item, idx) => {
@@ -115,7 +116,7 @@ export default function FAQ() {
               </div>
             );
           })}
-        </div>
+        </ScrollReveal>
 
       </div>
     </section>

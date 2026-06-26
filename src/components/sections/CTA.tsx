@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ScrollReveal from "../shared/ScrollReveal";
 
 export default function CTA() {
   const [copied, setCopied] = useState(false);
@@ -22,7 +23,7 @@ export default function CTA() {
       <div className="glow-blob glow-blob-gold" style={{ width: "700px", height: "700px", top: "50%", left: "50%", transform: "translate(-50%,-50%)", opacity: 0.45 }} aria-hidden="true" />
 
       <div className="nm-container" style={{ position: "relative", zIndex: 10 }}>
-        <div className="reveal-on-scroll">
+        <ScrollReveal>
 
           {/* Glass card */}
           <div style={{
@@ -140,7 +141,7 @@ export default function CTA() {
             </div>
 
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

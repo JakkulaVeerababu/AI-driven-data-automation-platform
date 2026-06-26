@@ -82,12 +82,11 @@ export default function Navbar() {
               aria-expanded={isOpen}
               aria-controls="mobile-nav"
               style={{
-                display: "none",
                 width: "40px", height: "40px", border: "1px solid rgba(255,255,255,0.1)",
                 borderRadius: "10px", background: "rgba(255,255,255,0.04)",
-                color: "#F0F6F3", cursor: "pointer", alignItems: "center", justifyContent: "center",
+                color: "#F0F6F3", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
               }}
-              className="hidden"
+              className="md:hidden"
             >
               <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                 {isOpen
