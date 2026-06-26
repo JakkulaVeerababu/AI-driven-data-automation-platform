@@ -2,22 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-
-function Logo() {
-  return (
-    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-      <div style={{
-        width: "30px", height: "30px", borderRadius: "8px",
-        background: "linear-gradient(135deg, #FFC801 0%, #FF9932 100%)",
-        display: "flex", alignItems: "center", justifyContent: "center",
-        fontSize: "14px", fontWeight: 800, color: "#07101A",
-      }}>N</div>
-      <span style={{ fontWeight: 700, fontSize: "15px", letterSpacing: "-0.02em", color: "#fff" }}>
-        NEURAL<span style={{ color: "#FFC801" }}>.mesh</span>
-      </span>
-    </div>
-  );
-}
+import Logo from "../shared/Logo";
 
 const NAV_LINKS = [
   { href: "#features", label: "Features",  id: "features" },

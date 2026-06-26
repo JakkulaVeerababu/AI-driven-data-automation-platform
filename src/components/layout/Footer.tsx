@@ -1,3 +1,5 @@
+import Logo from "../shared/Logo";
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -23,10 +25,7 @@ export default function Footer() {
 
             {/* Brand column */}
             <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <div style={{ width: "28px", height: "28px", borderRadius: "7px", background: "linear-gradient(135deg, #FFC801 0%, #FF9932 100%)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", fontWeight: 800, color: "#07101A" }}>N</div>
-                <span style={{ fontWeight: 700, fontSize: "14px", letterSpacing: "-0.02em", color: "#fff" }}>NEURAL<span style={{ color: "#FFC801" }}>.mesh</span></span>
-              </div>
+              <Logo />
               <p style={{ fontSize: "13px", color: "rgba(240,246,243,0.45)", lineHeight: 1.7, maxWidth: "240px" }}>
                 Deploying high-speed autonomous AI data automation pipelines and secure mesh nodes.
               </p>
