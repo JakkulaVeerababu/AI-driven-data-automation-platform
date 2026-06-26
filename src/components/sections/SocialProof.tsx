@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import ScrollReveal from "../shared/ScrollReveal";
+import StatisticCard from "../shared/StatisticCard";
+import TestimonialCard from "../shared/TestimonialCard";
 
 const STATS = [
   { value: "0.42ms",  label: "Inference Latency",     sub: "Industry-leading AI agent pipeline speed" },
@@ -74,14 +76,11 @@ export default function SocialProof() {
           <div className="stats-grid" style={{ display: "contents" }}>
             {STATS.map((s, i) => (
               <ScrollReveal key={i} delay={i * 70}>
-                <div className="nm-card" style={{ padding: "28px", height: "100%" }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 30px rgba(255,200,1,0.06), var(--shadow-md)"; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = ""; }}
-                >
-                  <div className="nm-stat-value" style={{ marginBottom: "8px" }}>{s.value}</div>
-                  <div style={{ fontSize: "11px", fontWeight: 700, color: "#FFC801", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "12px" }}>{s.label}</div>
-                  <p style={{ fontSize: "12px", color: "rgba(240,246,243,0.45)", lineHeight: 1.65, paddingTop: "12px", borderTop: "1px solid rgba(255,255,255,0.05)" }}>{s.sub}</p>
-                </div>
+                <StatisticCard
+                  value={s.value}
+                  label={s.label}
+                  sublabel={s.sub}
+                />
               </ScrollReveal>
             ))}
           </div>
@@ -122,25 +121,14 @@ export default function SocialProof() {
               <style>{`@media(min-width:640px){.testi-cards{grid-template-columns:repeat(2,1fr)!important}}`}</style>
               <div className="testi-cards" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "16px" }}>
                 {TESTIMONIALS.map((t, i) => (
-                  <ScrollReveal key={i} delay={i * 120}>
-                    <div className="nm-card" style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "16px", height: "100%" }}>
-                      <div style={{ fontSize: "32px", color: "rgba(255,200,1,0.15)", fontFamily: "serif", lineHeight: 1, userSelect: "none" }}>&ldquo;</div>
-                      <blockquote style={{ fontSize: "13px", color: "rgba(240,246,243,0.65)", lineHeight: 1.75, flex: 1 }}>
-                        {t.quote}
-                      </blockquote>
-                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "14px", gap: "12px" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "10px", minWidth: 0 }}>
-                          <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: "linear-gradient(135deg, #0F4455, #5EC8DC)", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", fontWeight: 700, color: "#fff" }}>
-                            {t.author[0]}
-                          </div>
-                          <div style={{ minWidth: 0 }}>
-                            <div style={{ fontSize: "13px", fontWeight: 700, color: "#fff", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{t.author}</div>
-                            <div style={{ fontSize: "11px", color: "rgba(240,246,243,0.4)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{t.role}, {t.company}</div>
-                          </div>
-                        </div>
-                        <div style={{ fontSize: "14px", color: "#FFC801", flexShrink: 0 }}>{"★".repeat(t.rating)}</div>
-                      </div>
-                    </div>
+                  <ScrollReveal key={i} delay={i * 120} style={{ height: "100%" }}>
+                    <TestimonialCard
+                      quote={t.quote}
+                      author={t.author}
+                      role={t.role}
+                      company={t.company}
+                      rating={t.rating}
+                    />
                   </ScrollReveal>
                 ))}
               </div>

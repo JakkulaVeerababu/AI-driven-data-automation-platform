@@ -88,15 +88,15 @@ export default function BentoGrid({ activeIndex, setActiveIndex }: BentoGridProp
           gap: 24px !important;
         }
         
-        .bento-card-0 { grid-column: span 1; grid-row: span 2; }
+        .bento-card-0 { grid-column: span 1; }
         .bento-card-1 { grid-column: span 1; }
-        .bento-card-2 { grid-row: span 2; }
+        .bento-card-2 { grid-column: span 1; }
         .bento-card-3 { grid-column: span 1; }
 
         @media (min-width: 640px) {
           .bento-grid {
             grid-template-columns: repeat(2, 1fr) !important;
-            grid-auto-rows: 290px !important;
+            grid-auto-rows: 320px !important;
           }
           .bento-card-0 { grid-column: span 2 !important; }
           .bento-card-3 { grid-column: span 2 !important; }
