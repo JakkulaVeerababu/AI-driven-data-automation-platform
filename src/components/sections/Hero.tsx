@@ -325,9 +325,17 @@ export default function Hero() {
             {/* Dashboard body */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr", minHeight: "340px" }}>
               <style>{`
+                .hero-telemetry-panel {
+                  border-top: 1px solid rgba(255,255,255,0.05);
+                  border-left: none;
+                }
                 @media (min-width: 1024px) {
                   .hero-dashboard-grid {
                     grid-template-columns: 3fr 1.3fr !important;
+                  }
+                  .hero-telemetry-panel {
+                    border-top: none !important;
+                    border-left: 1px solid rgba(255,255,255,0.05) !important;
                   }
                 }
               `}</style>
@@ -509,13 +517,13 @@ export default function Hero() {
 
                 {/* Right telemetry panel */}
                 <div
+                  className="hero-telemetry-panel"
                   style={{
                     padding: "16px",
                     background: "rgba(7,16,26,0.5)",
                     display: "flex",
                     flexDirection: "column",
                     gap: "14px",
-                    borderLeft: "1px solid rgba(255,255,255,0.05)",
                   }}
                 >
                   {/* Topology SVG */}
