@@ -58,11 +58,12 @@ export default function Hero() {
 
   return (
     <section
-      className="nm-hero bg-grid bg-grid-fade"
+      className="nm-hero"
       aria-labelledby="hero-title"
       aria-describedby="hero-desc"
       style={{ minHeight: "85vh", padding: "112px 0 64px" }}
     >
+      <div className="absolute inset-0 bg-grid bg-grid-fade pointer-events-none" aria-hidden="true" />
       {/* Aurora blobs */}
       <div
         className="glow-blob glow-blob-teal animate-aurora"

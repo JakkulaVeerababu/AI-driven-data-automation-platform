@@ -15,10 +15,11 @@ export default function CTA() {
   return (
     <section
       id="cta"
-      className="nm-section bg-grid bg-grid-fade"
+      className="nm-section"
       aria-labelledby="cta-heading"
       style={{ background: "var(--bg)" }}
     >
+      <div className="absolute inset-0 bg-grid bg-grid-fade pointer-events-none" aria-hidden="true" />
       {/* Central glow */}
       <div className="glow-blob glow-blob-gold" style={{ width: "700px", height: "700px", top: "50%", left: "50%", transform: "translate(-50%,-50%)", opacity: 0.45 }} aria-hidden="true" />
 

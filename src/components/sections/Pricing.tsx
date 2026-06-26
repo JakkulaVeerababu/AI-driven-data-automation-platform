@@ -68,11 +68,12 @@ export default function Pricing() {
   return (
     <section
       id="pricing"
-      className="nm-section bg-grid bg-grid-fade"
+      className="nm-section"
       aria-labelledby="pricing-title"
       style={{ background: "var(--bg)" }}
     >
       {/* Glow overlays */}
+      <div className="absolute inset-0 bg-grid bg-grid-fade pointer-events-none" aria-hidden="true" />
       <div
         className="glow-blob glow-blob-teal animate-aurora"
         style={{
