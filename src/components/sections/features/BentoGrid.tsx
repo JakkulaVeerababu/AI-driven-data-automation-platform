@@ -15,7 +15,6 @@ interface FeatureItem {
   iconPath: string;
   tagLeft: string;
   tagRight?: string;
-  gridClass: string;
 }
 
 const FEATURES: FeatureItem[] = [
@@ -26,7 +25,6 @@ const FEATURES: FeatureItem[] = [
     iconPath: "/assets/svg/chart-pie.svg",
     tagLeft: "AI Pipeline Loop",
     tagRight: "LCP Optimized",
-    gridClass: "col-span-1 sm:col-span-2 row-span-2",
   },
   {
     id: "sandbox-zones",
@@ -34,7 +32,6 @@ const FEATURES: FeatureItem[] = [
     description: "Execute autonomous AI agent payloads within isolated kernel sandbox threads with hardware memory security.",
     iconPath: "/assets/svg/cube-16-solid.svg",
     tagLeft: "Security Grade AA",
-    gridClass: "col-span-1",
   },
   {
     id: "sandbox-settings",
@@ -42,7 +39,6 @@ const FEATURES: FeatureItem[] = [
     description: "Deep model execution configurations. Optimize token chunk sizes, retry intervals, and context windows directly in our live settings node.",
     iconPath: "/assets/svg/cog-8-tooth.svg",
     tagLeft: "Agent Config",
-    gridClass: "row-span-2",
   },
   {
     id: "sandbox-workflows",
@@ -51,7 +47,6 @@ const FEATURES: FeatureItem[] = [
     iconPath: "/assets/svg/arrow-path.svg",
     tagLeft: "Automatic Failover",
     tagRight: "Active",
-    gridClass: "col-span-1 sm:col-span-2",
   },
 ];
 
@@ -85,124 +80,233 @@ export default function BentoGrid({ activeIndex, setActiveIndex }: BentoGridProp
   );
 
   return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 auto-rows-[290px]">
-      {FEATURES.map((item, idx) => {
-        const isActive = activeIndex === idx;
+    <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "24px" }}>
+      <style>{`
+        .bento-grid {
+          display: grid !important;
+          grid-template-columns: 1fr !important;
+          gap: 24px !important;
+        }
+        
+        .bento-card-0 { grid-column: span 1; grid-row: span 2; }
+        .bento-card-1 { grid-column: span 1; }
+        .bento-card-2 { grid-row: span 2; }
+        .bento-card-3 { grid-column: span 1; }
 
-        return (
-          <div
-            key={item.id}
-            id={`feature-card-${idx}`}
-            tabIndex={0}
-            onClick={() => setActiveIndex(idx)}
-            onFocus={() => setActiveIndex(idx)}
-            onMouseEnter={() => setActiveIndex(idx)}
-            onKeyDown={(e) => handleKeyDown(e, idx)}
-            className={`group/card outline-none rounded-3xl transition-all duration-300 ${item.gridClass} ${
-              isActive
-                ? "ring-2 ring-forsythia border-transparent shadow-premium-lg scale-[1.01]"
-                : "hover:ring-1 hover:ring-white/10"
-            }`}
-            role="tab"
-            aria-selected={isActive}
-            aria-label={`${item.title} feature card`}
-            aria-controls={`feature-desc-${idx}`}
-          >
-            <FeatureCard
-              title={item.title}
-              description={item.description}
-              iconPath={item.iconPath}
-              tagLeft={item.tagLeft}
-              tagRight={item.tagRight}
-              className={`h-full cursor-pointer ${
-                isActive ? "border-forsythia/35 bg-white/5" : "border-white/5"
-              }`}
+        @media (min-width: 640px) {
+          .bento-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            grid-auto-rows: 290px !important;
+          }
+          .bento-card-0 { grid-column: span 2 !important; }
+          .bento-card-3 { grid-column: span 2 !important; }
+        }
+        
+        @media (min-width: 1024px) {
+          .bento-grid {
+            grid-template-columns: repeat(3, 1fr) !important;
+          }
+          .bento-card-0 { grid-column: span 2 !important; }
+          .bento-card-3 { grid-column: span 2 !important; }
+        }
+
+        .bento-card-item:focus-visible {
+          outline: 2px solid #FFC801 !important;
+          outline-offset: 3px;
+        }
+      `}</style>
+
+      <div className="bento-grid" style={{ display: "contents" }}>
+        {FEATURES.map((item, idx) => {
+          const isActive = activeIndex === idx;
+
+          return (
+            <div
+              key={item.id}
+              id={`feature-card-${idx}`}
+              tabIndex={0}
+              onClick={() => setActiveIndex(idx)}
+              onFocus={() => setActiveIndex(idx)}
+              onMouseEnter={() => setActiveIndex(idx)}
+              onKeyDown={(e) => handleKeyDown(e, idx)}
+              className={`bento-card-item bento-card-${idx}`}
+              style={{
+                outline: "none",
+                borderRadius: "24px",
+                transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+                border: isActive ? "1px solid #FFC801" : "1px solid rgba(255, 255, 255, 0.05)",
+                boxShadow: isActive ? "0 0 30px rgba(255, 200, 1, 0.08)" : "none",
+                transform: isActive ? "scale(1.01)" : "none",
+                background: isActive ? "rgba(255, 255, 255, 0.02)" : "transparent",
+                cursor: "pointer",
+                overflow: "hidden",
+              }}
+              role="tab"
+              aria-selected={isActive}
+              aria-label={`${item.title} feature card`}
+              aria-controls={`feature-desc-${idx}`}
             >
-              {/* Graphic components for specific cells */}
-              {idx === 0 && (
-                <div className="w-full bg-black/20 border border-white/5 rounded-2xl p-4 flex flex-col gap-3 font-mono text-3xs text-arctic-powder/60 mt-4 overflow-hidden relative select-none">
-                  <div className="flex justify-between items-center text-2xs border-b border-white/5 pb-2">
-                    <span className="text-forsythia font-bold">AI_AGENT: AGI-418</span>
-                    <span className="text-mystic-mint font-semibold animate-pulse">● STABLE_FEED</span>
+              <FeatureCard
+                title={item.title}
+                description={item.description}
+                iconPath={item.iconPath}
+                tagLeft={item.tagLeft}
+                tagRight={item.tagRight}
+                className="h-full"
+                style={{ border: "none", background: "transparent" }}
+              >
+                {/* Graphic components for specific cells */}
+                {idx === 0 && (
+                  <div style={{
+                    width: "100%",
+                    background: "rgba(0,0,0,0.2)",
+                    border: "1px solid rgba(255,255,255,0.05)",
+                    borderRadius: "16px",
+                    padding: "16px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "12px",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "10px",
+                    color: "rgba(240,246,243,0.6)",
+                    marginTop: "16px",
+                    overflow: "hidden",
+                    position: "relative",
+                    userSelect: "none"
+                  }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "11px", borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "8px" }}>
+                      <span style={{ color: "#FFC801", fontWeight: "bold" }}>AI_AGENT: AGI-418</span>
+                      <span className="animate-pulse" style={{ color: "#C8E0D8", fontWeight: 600 }}>● STABLE_FEED</span>
+                    </div>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "8px", textAlign: "center", fontSize: "10px" }}>
+                      <div style={{ background: "rgba(255,255,255,0.05)", borderRadius: "4px", padding: "4px" }}>
+                        <span style={{ display: "block", color: "rgba(240,246,243,0.4)", fontWeight: 600, fontSize: "9px" }}>TOKEN_HIT</span>
+                        <span style={{ color: "#FFC801", fontWeight: "bold" }}>98.4%</span>
+                      </div>
+                      <div style={{ background: "rgba(255,255,255,0.05)", borderRadius: "4px", padding: "4px" }}>
+                        <span style={{ display: "block", color: "rgba(240,246,243,0.4)", fontWeight: 600, fontSize: "9px" }}>INFERENCE</span>
+                        <span style={{ color: "#4ADE80", fontWeight: "bold" }}>0.42ms</span>
+                      </div>
+                      <div style={{ background: "rgba(255,255,255,0.05)", borderRadius: "4px", padding: "4px" }}>
+                        <span style={{ display: "block", color: "rgba(240,246,243,0.4)", fontWeight: 600, fontSize: "9px" }}>AGENT_LOAD</span>
+                        <span style={{ color: "#FF9932", fontWeight: "bold" }}>12.5%</span>
+                      </div>
+                    </div>
+                    {/* SVG Wave chart */}
+                    <svg style={{ width: "100%", height: "32px", marginTop: "4px" }} viewBox="0 0 200 50" fill="none" aria-hidden="true">
+                      <path d="M0 35 Q 25 15, 50 35 T 100 35 T 150 15 T 200 25" stroke="#FFC801" strokeWidth="2" strokeLinecap="round" />
+                      <path d="M0 35 Q 25 15, 50 35 T 100 35 T 150 15 T 200 25 L 200 50 L 0 50 Z" fill="rgba(255, 200, 1, 0.05)" />
+                      <circle cx="150" cy="15" r="4.5" fill="#FF9932" className="animate-pulse" />
+                      <circle cx="150" cy="15" r="3" fill="#FF9932" />
+                    </svg>
                   </div>
-                  <div className="grid grid-cols-3 gap-2 text-center text-3xs">
-                    <div className="bg-white/5 rounded p-1">
-                      <span className="block text-arctic-powder/40 font-semibold">TOKEN_HIT</span>
-                      <span className="text-forsythia font-bold">98.4%</span>
-                    </div>
-                    <div className="bg-white/5 rounded p-1">
-                      <span className="block text-arctic-powder/40 font-semibold">INFERENCE</span>
-                      <span className="text-mystic-mint font-bold">0.42ms</span>
-                    </div>
-                    <div className="bg-white/5 rounded p-1">
-                      <span className="block text-arctic-powder/40 font-semibold">AGENT_LOAD</span>
-                      <span className="text-deep-saffron font-bold">12.5%</span>
-                    </div>
-                  </div>
-                  {/* SVG Wave chart */}
-                  <svg className="w-full h-8 mt-1" viewBox="0 0 200 50" fill="none" aria-hidden="true">
-                    <path d="M0 35 Q 25 15, 50 35 T 100 35 T 150 15 T 200 25" stroke="#FFC801" strokeWidth="2" strokeLinecap="round" />
-                    <path d="M0 35 Q 25 15, 50 35 T 100 35 T 150 15 T 200 25 L 200 50 L 0 50 Z" fill="rgba(255, 200, 1, 0.05)" />
-                    <circle cx="150" cy="15" r="4.5" fill="#FF9932" className="animate-ping" />
-                    <circle cx="150" cy="15" r="3" fill="#FF9932" />
-                  </svg>
-                </div>
-              )}
+                )}
 
-              {idx === 1 && (
-                <div className="w-full flex items-center justify-center p-2 mt-4 bg-black/10 border border-white/5 rounded-2xl relative overflow-hidden h-[100px] select-none">
-                  {/* Circular shield ring mockup */}
-                  <div className="absolute h-16 w-16 rounded-full border border-mystic-mint/10 animate-spin" style={{ animationDuration: "8s" }} />
-                  <div className="absolute h-12 w-12 rounded-full border border-dashed border-forsythia/30 animate-spin" style={{ animationDuration: "12s" }} />
-                  {/* Core CPU node */}
-                  <div className="h-7 w-7 rounded bg-nocturnal-expedition flex items-center justify-center border border-forsythia/40 shadow-[0_0_15px_rgba(255,200,1,0.2)]">
-                    <span className="text-4xs font-mono font-bold text-forsythia">AGI</span>
+                {idx === 1 && (
+                  <div style={{
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "8px",
+                    marginTop: "16px",
+                    background: "rgba(0,0,0,0.1)",
+                    border: "1px solid rgba(255,255,255,0.05)",
+                    borderRadius: "16px",
+                    position: "relative",
+                    overflow: "hidden",
+                    height: "100px",
+                    userSelect: "none"
+                  }}>
+                    {/* Circular shield ring mockup */}
+                    <div className="animate-spin" style={{ position: "absolute", height: "64px", width: "64px", borderRadius: "50%", border: "1px solid rgba(200, 224, 216, 0.1)", animationDuration: "8s" }} />
+                    <div className="animate-spin" style={{ position: "absolute", height: "48px", width: "48px", borderRadius: "50%", border: "1px dashed rgba(255,200,1,0.3)", animationDuration: "12s" }} />
+                    {/* Core CPU node */}
+                    <div style={{
+                      height: "28px",
+                      width: "28px",
+                      borderRadius: "4px",
+                      background: "#0F4455",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      border: "1px solid rgba(255,200,1,0.4)",
+                      boxShadow: "0 0 15px rgba(255,200,1,0.2)"
+                    }}>
+                      <span style={{ fontSize: "9px", fontFamily: "var(--font-mono)", fontWeight: "bold", color: "#FFC801" }}>AGI</span>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {idx === 2 && (
-                <div className="flex flex-col gap-3.5 bg-black/20 border border-white/5 rounded-2xl p-4 font-mono text-3xs text-arctic-powder/60 my-6 select-none">
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between text-4xs font-semibold">
-                      <span>CHUNK_SIZE</span>
-                      <span className="text-forsythia font-bold">4096 TOKENS</span>
+                {idx === 2 && (
+                  <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "14px",
+                    background: "rgba(0,0,0,0.2)",
+                    border: "1px solid rgba(255,255,255,0.05)",
+                    borderRadius: "16px",
+                    padding: "16px",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "10px",
+                    color: "rgba(240,246,243,0.6)",
+                    margin: "24px 0",
+                    userSelect: "none"
+                  }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", fontSize: "9px", fontWeight: "bold" }}>
+                        <span>CHUNK_SIZE</span>
+                        <span style={{ color: "#FFC801" }}>4096 TOKENS</span>
+                      </div>
+                      <div style={{ height: "4px", background: "rgba(255,255,255,0.1)", borderRadius: "99px", overflow: "hidden" }}>
+                        <div style={{ height: "100%", background: "#FFC801", width: "90%" }} />
+                      </div>
                     </div>
-                    <div className="h-1 bg-white/10 rounded-full overflow-hidden">
-                      <div className="h-full bg-forsythia w-[90%]" />
+                    <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", fontSize: "9px", fontWeight: "bold" }}>
+                        <span>TOKEN_LIMITS</span>
+                        <span style={{ color: "#C8E0D8" }}>128K ACTIVE</span>
+                      </div>
+                      <div style={{ height: "4px", background: "rgba(255,255,255,0.1)", borderRadius: "99px", overflow: "hidden" }}>
+                        <div style={{ height: "100%", background: "#C8E0D8", width: "75%" }} />
+                      </div>
                     </div>
                   </div>
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between text-4xs font-semibold">
-                      <span>TOKEN_LIMITS</span>
-                      <span className="text-mystic-mint font-bold">128K ACTIVE</span>
-                    </div>
-                    <div className="h-1 bg-white/10 rounded-full overflow-hidden">
-                      <div className="h-full bg-mystic-mint w-[75%]" />
-                    </div>
-                  </div>
-                </div>
-              )}
+                )}
 
-              {idx === 3 && (
-                <div className="w-full bg-black/20 border border-white/5 rounded-2xl p-4 mt-4 font-mono text-3xs text-arctic-powder/60 relative overflow-hidden select-none">
-                  <div className="flex items-center justify-between">
-                    <span className="bg-white/5 px-2 py-0.5 rounded text-4xs text-white">Trigger</span>
-                    <span className="text-arctic-powder/20">&rarr;</span>
-                    <span className="bg-nocturnal-expedition/30 border border-nocturnal-expedition/50 px-2 py-0.5 rounded text-4xs text-mystic-mint animate-pulse">Orchestrate</span>
-                    <span className="text-arctic-powder/20">&rarr;</span>
-                    <span className="bg-forsythia/10 border border-forsythia/20 px-2 py-0.5 rounded text-4xs text-forsythia">AI Sandbox</span>
+                {idx === 3 && (
+                  <div style={{
+                    width: "100%",
+                    background: "rgba(0,0,0,0.2)",
+                    border: "1px solid rgba(255,255,255,0.05)",
+                    borderRadius: "16px",
+                    padding: "16px",
+                    marginTop: "16px",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "10px",
+                    color: "rgba(240,246,243,0.6)",
+                    position: "relative",
+                    overflow: "hidden",
+                    userSelect: "none"
+                  }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                      <span style={{ background: "rgba(255,255,255,0.05)", padding: "2px 8px", borderRadius: "4px", fontSize: "9px", color: "#fff" }}>Trigger</span>
+                      <span style={{ color: "rgba(240,246,243,0.2)" }}>&rarr;</span>
+                      <span className="animate-pulse" style={{ background: "rgba(15,68,85,0.3)", border: "1px solid rgba(15,68,85,0.5)", padding: "2px 8px", borderRadius: "4px", fontSize: "9px", color: "#C8E0D8" }}>Orchestrate</span>
+                      <span style={{ color: "rgba(240,246,243,0.2)" }}>&rarr;</span>
+                      <span style={{ background: "rgba(255,200,1,0.1)", border: "1px solid rgba(255,200,1,0.2)", padding: "2px 8px", borderRadius: "4px", fontSize: "9px", color: "#FFC801" }}>AI Sandbox</span>
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "9px", paddingTop: "12px", marginTop: "12px", borderTop: "1px solid rgba(255,255,255,0.05)", color: "rgba(240,246,243,0.45)" }}>
+                      <span>AGENT_RETRY: Active</span>
+                      <span style={{ color: "#4ADE80", fontWeight: "bold" }}>99.9% EFF</span>
+                    </div>
                   </div>
-                  <div className="flex justify-between items-center text-4xs pt-3 mt-3 border-t border-white/5 text-arctic-powder/45">
-                    <span>AGENT_RETRY: Active</span>
-                    <span className="text-emerald-400 font-bold">99.9% EFF</span>
-                  </div>
-                </div>
-              )}
-            </FeatureCard>
-          </div>
-        );
-      })}
+                )}
+              </FeatureCard>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import SectionTitle from "../shared/SectionTitle";
 import PricingCard from "../shared/PricingCard";
 import ScrollReveal from "../shared/ScrollReveal";
@@ -66,16 +68,44 @@ export default function Pricing() {
   return (
     <section
       id="pricing"
-      className="py-28 bg-oceanic-noir relative overflow-hidden border-t border-mystic-mint/8 bg-grid-pattern"
+      className="nm-section bg-grid bg-grid-fade"
       aria-labelledby="pricing-title"
+      style={{ background: "var(--bg)" }}
     >
       {/* Glow overlays */}
-      <div className="absolute inset-0 bg-grid-fade pointer-events-none" aria-hidden="true" />
-      <div className="absolute top-0 left-1/4 h-[500px] w-[500px] rounded-full bg-glow-radial filter blur-[120px] pointer-events-none opacity-60" aria-hidden="true" />
-      <div className="absolute bottom-0 right-1/4 h-[400px] w-[400px] rounded-full bg-glow-forsythia filter blur-[100px] pointer-events-none opacity-40" aria-hidden="true" />
+      <div
+        className="glow-blob glow-blob-teal animate-aurora"
+        style={{
+          width: "500px",
+          height: "500px",
+          top: "0",
+          left: "20%",
+          opacity: 0.35,
+        }}
+        aria-hidden="true"
+      />
+      <div
+        className="glow-blob glow-blob-orange"
+        style={{
+          width: "400px",
+          height: "400px",
+          bottom: "10%",
+          right: "20%",
+          opacity: 0.25,
+        }}
+        aria-hidden="true"
+      />
 
-      <div className="container-custom flex flex-col gap-16 relative z-10">
-
+      <div
+        className="nm-container"
+        style={{
+          position: "relative",
+          zIndex: 10,
+          display: "flex",
+          flexDirection: "column",
+          gap: "64px",
+        }}
+      >
         {/* Header */}
         <ScrollReveal>
           <SectionTitle
@@ -89,41 +119,83 @@ export default function Pricing() {
 
         {/* Toggles */}
         <ScrollReveal delay={50}>
-          <div className="flex flex-col items-center gap-5">
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "20px",
+            }}
+          >
             <BillingToggle />
             <CurrencySelector />
           </div>
         </ScrollReveal>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 items-stretch">
-          {PLANS.map((plan, idx) => (
-            <ScrollReveal key={plan.id} delay={idx * 100}>
-              <PricingCard
-                name={plan.name}
-                basePriceUSD={plan.basePriceUSD}
-                description={plan.description}
-                features={plan.features}
-                isPopular={plan.isPopular}
-                highlight={plan.highlight}
-                className="h-full"
-              />
-            </ScrollReveal>
-          ))}
+        {/* Cards Grid */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr",
+            gap: "24px",
+            alignItems: "stretch",
+          }}
+        >
+          <style>{`
+            @media (min-width: 768px) {
+              .pricing-cards-grid {
+                grid-template-columns: repeat(3, 1fr) !important;
+              }
+            }
+          `}</style>
+          <div className="pricing-cards-grid" style={{ display: "contents" }}>
+            {PLANS.map((plan, idx) => (
+              <ScrollReveal key={plan.id} delay={idx * 100} style={{ height: "100%" }}>
+                <PricingCard
+                  name={plan.name}
+                  basePriceUSD={plan.basePriceUSD}
+                  description={plan.description}
+                  features={plan.features}
+                  isPopular={plan.isPopular}
+                  highlight={plan.highlight}
+                  className="h-full"
+                />
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
 
         {/* Bottom trust strip */}
         <ScrollReveal delay={200}>
-          <div className="flex flex-wrap justify-center items-center gap-6 pt-4 text-3xs font-mono text-arctic-powder/40">
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "12px 28px",
+              paddingTop: "16px",
+              fontSize: "10px",
+              fontFamily: "var(--font-mono)",
+              color: "rgba(240,246,243,0.38)",
+              fontWeight: 700,
+            }}
+          >
             {["No credit card required", "Cancel anytime", "Instant provisioning", "WCAG AA compliant"].map((t) => (
-              <span key={t} className="flex items-center gap-2">
-                <span className="h-1 w-1 rounded-full bg-forsythia/60" />
+              <span key={t} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <span
+                  style={{
+                    height: "4px",
+                    width: "4px",
+                    borderRadius: "50%",
+                    background: "rgba(255, 200, 1, 0.6)",
+                  }}
+                />
                 {t.toUpperCase()}
               </span>
             ))}
           </div>
         </ScrollReveal>
-
       </div>
     </section>
   );

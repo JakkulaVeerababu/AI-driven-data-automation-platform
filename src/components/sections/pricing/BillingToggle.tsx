@@ -9,16 +9,38 @@ export default function BillingToggle() {
     pricingStore.toggleBillingCycle();
   };
 
+  const wrapperStyle = {
+    background: "rgba(255, 255, 255, 0.04)",
+    padding: "5px",
+    borderRadius: "9999px",
+    border: "1px solid rgba(255, 255, 255, 0.08)",
+    display: "flex",
+    alignItems: "center",
+    gap: "6px",
+    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05), 0 4px 12px rgba(0,0,0,0.3)",
+  };
+
+  const getButtonStyle = (isActive: boolean) => ({
+    background: isActive ? "#FFC801" : "transparent",
+    color: isActive ? "#07101A" : "rgba(240, 246, 243, 0.65)",
+    padding: "8px 20px",
+    borderRadius: "9999px",
+    border: "none",
+    cursor: "pointer",
+    transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+    fontSize: "10px",
+    fontWeight: 800,
+    textTransform: "uppercase" as const,
+    letterSpacing: "0.08em",
+    boxShadow: isActive ? "0 2px 8px rgba(255,200,1,0.25)" : "none",
+  });
+
   return (
-    <div className="flex items-center gap-3 bg-white/5 p-1.5 rounded-full border border-white/10 shadow-premium-sm">
+    <div style={wrapperStyle} aria-label="Billing cycle selector">
       <button
         onClick={handleToggle}
         type="button"
-        className={`px-5 py-1.5 rounded-full text-2xs font-extrabold uppercase tracking-wider transition-all duration-200 focus-visible:ring-2 focus-visible:ring-forsythia focus-visible:ring-offset-2 focus-visible:ring-offset-oceanic-noir ${
-          billingCycle === "monthly"
-            ? "bg-forsythia text-oceanic-noir shadow-sm"
-            : "text-arctic-powder/70 hover:text-white"
-        }`}
+        style={getButtonStyle(billingCycle === "monthly")}
         aria-pressed={billingCycle === "monthly"}
         aria-label="Switch pricing to monthly billing cycle"
       >
@@ -27,11 +49,7 @@ export default function BillingToggle() {
       <button
         onClick={handleToggle}
         type="button"
-        className={`px-5 py-1.5 rounded-full text-2xs font-extrabold uppercase tracking-wider transition-all duration-200 focus-visible:ring-2 focus-visible:ring-forsythia focus-visible:ring-offset-2 focus-visible:ring-offset-oceanic-noir ${
-          billingCycle === "annually"
-            ? "bg-forsythia text-oceanic-noir shadow-sm"
-            : "text-arctic-powder/70 hover:text-white"
-        }`}
+        style={getButtonStyle(billingCycle === "annually")}
         aria-pressed={billingCycle === "annually"}
         aria-label="Switch pricing to annual billing cycle (including 20% discount)"
       >

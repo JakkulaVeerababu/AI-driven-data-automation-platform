@@ -15,7 +15,15 @@ export default function PriceDisplay({ basePriceUSD }: PriceDisplayProps) {
   const displayPrice = formatPrice(numericPrice, currency);
 
   return (
-    <span className="text-4xl font-extrabold text-white font-mono tracking-tight animate-fade-in-up">
+    <span
+      style={{
+        fontSize: "32px",
+        fontWeight: 800,
+        color: "#ffffff",
+        fontFamily: "var(--font-mono)",
+        letterSpacing: "-0.03em",
+      }}
+    >
       {displayPrice}
     </span>
   );

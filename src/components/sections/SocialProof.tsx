@@ -1,76 +1,66 @@
-import Container from "../shared/Container";
-import Badge from "../shared/Badge";
-import StatisticCard from "../shared/StatisticCard";
-import TestimonialCard from "../shared/TestimonialCard";
-import ScrollReveal from "../shared/ScrollReveal";
+"use client";
+
 import Image from "next/image";
+import ScrollReveal from "../shared/ScrollReveal";
 
-interface StatItem { value: string; label: string; sublabel: string; }
-interface TestimonialItem { quote: string; author: string; role: string; company: string; rating: number; }
-
-const STATS: StatItem[] = [
-  { value: "0.42ms",  label: "Inference Latency",         sublabel: "Industry-leading AI agent pipeline speed" },
-  { value: "99.999%", label: "Sandbox Uptime",            sublabel: "Zero-fault hot-swappable node clusters" },
-  { value: "45.2M+",  label: "Workflows Daily",           sublabel: "High-density automated pipeline telemetry" },
-  { value: "14+",     label: "Global Secure Regions",     sublabel: "Distributed low-overhead mesh nodes" },
+const STATS = [
+  { value: "0.42ms",  label: "Inference Latency",     sub: "Industry-leading AI agent pipeline speed" },
+  { value: "99.999%", label: "Sandbox Uptime",        sub: "Zero-fault hot-swappable node clusters" },
+  { value: "45.2M+",  label: "Workflows Daily",       sub: "High-density automated pipeline telemetry" },
+  { value: "14+",     label: "Global Secure Regions", sub: "Distributed low-overhead mesh nodes" },
 ];
 
-const TESTIMONIALS: TestimonialItem[] = [
+const TESTIMONIALS = [
   {
-    quote: "Moving our real-time telemetry compilation to NEURAL.mesh reduced our AI agent pipeline overhead by 40%. The inference indicators are incredibly precise, and visible focus outlines conform completely with our compliance standard.",
-    author: "Elena Rostova",
-    role: "Lead AI Platform Engineer",
-    company: "Vercel Systems",
-    rating: 5,
+    quote: "Moving our real-time telemetry compilation to NEURAL.mesh reduced AI agent pipeline overhead by 40%. The inference indicators are incredibly precise.",
+    author: "Elena Rostova", role: "Lead AI Platform Engineer", company: "Vercel Systems", rating: 5,
   },
   {
-    quote: "The visual modular architecture is the best I've seen. Scaffolding custom AI sandbox instances is instantaneous, and the zero-dependency CSS theme matches our dark premium branding flawlessly.",
-    author: "Marcus Vance",
-    role: "Principal Design Engineer",
-    company: "Linear Corp",
-    rating: 5,
+    quote: "The visual modular architecture is the best I've seen. Scaffolding custom AI sandbox instances is instantaneous and the dark theme matches our branding flawlessly.",
+    author: "Marcus Vance", role: "Principal Design Engineer", company: "Linear Corp", rating: 5,
   },
 ];
 
 const PARTNERS = [
-  { icon: "/assets/svg/cube-16-solid.svg",     name: "AI_MESH.IO",        color: "text-forsythia" },
-  { icon: "/assets/svg/chart-pie.svg",         name: "AGENT_FLOW",        color: "text-deep-saffron" },
-  { icon: "/assets/svg/cog-8-tooth.svg",       name: "NEURAL_PIPELINE",   color: "text-mystic-mint" },
-  { icon: "/assets/svg/arrow-trending-up.svg", name: "TELEMETRY_CORE",    color: "text-forsythia" },
-  { icon: "/assets/svg/cube-16-solid.svg",     name: "SANDBOX_LABS",      color: "text-deep-saffron" },
-  { icon: "/assets/svg/chart-pie.svg",         name: "MESH_ANALYTICS",    color: "text-mystic-mint" },
+  { icon: "/assets/svg/cube-16-solid.svg",     name: "AI_MESH.IO",      color: "#FFC801" },
+  { icon: "/assets/svg/chart-pie.svg",         name: "AGENT_FLOW",      color: "#FF9932" },
+  { icon: "/assets/svg/cog-8-tooth.svg",       name: "NEURAL_PIPELINE", color: "#5EC8DC" },
+  { icon: "/assets/svg/arrow-trending-up.svg", name: "TELEMETRY_CORE",  color: "#FFC801" },
+  { icon: "/assets/svg/cube-16-solid.svg",     name: "SANDBOX_LABS",    color: "#FF9932" },
+  { icon: "/assets/svg/chart-pie.svg",         name: "MESH_ANALYTICS",  color: "#5EC8DC" },
 ];
 
 export default function SocialProof() {
   return (
     <section
       id="social-proof"
-      className="py-28 bg-oceanic-noir relative overflow-hidden border-t border-mystic-mint/8"
+      className="nm-section"
       aria-labelledby="social-proof-title"
+      style={{ background: "var(--bg)" }}
     >
-      {/* Glow layers */}
-      <div className="absolute top-1/3 left-1/4 h-[500px] w-[500px] rounded-full bg-glow-radial filter blur-[120px] pointer-events-none opacity-50" aria-hidden="true" />
-      <div className="absolute bottom-1/4 right-1/3 h-[350px] w-[350px] rounded-full bg-glow-saffron filter blur-[90px] pointer-events-none opacity-40" aria-hidden="true" />
+      <div className="glow-blob glow-blob-teal" style={{ width: "600px", height: "600px", top: "20%", left: "10%", opacity: 0.3 }} aria-hidden="true" />
+      <div className="glow-blob glow-blob-orange" style={{ width: "400px", height: "400px", bottom: "10%", right: "15%", opacity: 0.25 }} aria-hidden="true" />
 
-      <Container className="flex flex-col gap-24 relative z-10">
-        <h2 id="social-proof-title" className="sr-only">Social Proof and System Performance Metrics</h2>
+      <h2 id="social-proof-title" style={{ position: "absolute", width: "1px", height: "1px", overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>
+        Social Proof and System Performance Metrics
+      </h2>
 
-        {/* Partner Logo Marquee */}
+      <div className="nm-container" style={{ position: "relative", zIndex: 10, display: "flex", flexDirection: "column", gap: "80px" }}>
+
+        {/* Partner marquee */}
         <ScrollReveal>
-          <div className="flex flex-col gap-8 text-center overflow-hidden relative">
-            <span className="text-3xs font-extrabold uppercase tracking-[0.2em] text-arctic-powder/35">
+          <div style={{ textAlign: "center", overflow: "hidden", position: "relative" }}>
+            <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(240,246,243,0.3)", marginBottom: "28px" }}>
               Powering Next-Gen AI Telemetry For Elite Teams
-            </span>
-
-            <div className="absolute left-0 top-8 bottom-0 w-32 bg-gradient-to-r from-oceanic-noir to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-8 bottom-0 w-32 bg-gradient-to-l from-oceanic-noir to-transparent z-10 pointer-events-none" />
-
-            <div className="w-full overflow-hidden py-2">
-              <div className="animate-marquee flex items-center gap-20 opacity-50 hover:opacity-80 transition-opacity duration-500">
-                {[...PARTNERS, ...PARTNERS].map(({ icon, name, color }, idx) => (
-                  <div key={idx} className="flex items-center gap-2.5 text-white font-mono text-xs font-bold shrink-0 select-none">
-                    <Image src={icon} width={16} height={16} className={`h-4 w-4 ${color}`} alt="" aria-hidden="true" />
-                    <span>{name}</span>
+            </p>
+            <div style={{ position: "absolute", left: 0, top: "28px", bottom: 0, width: "120px", background: "linear-gradient(to right, var(--bg), transparent)", zIndex: 10, pointerEvents: "none" }} />
+            <div style={{ position: "absolute", right: 0, top: "28px", bottom: 0, width: "120px", background: "linear-gradient(to left, var(--bg), transparent)", zIndex: 10, pointerEvents: "none" }} />
+            <div style={{ overflow: "hidden" }}>
+              <div className="animate-marquee" style={{ gap: "60px", opacity: 0.55 }}>
+                {[...PARTNERS, ...PARTNERS].map(({ icon, name, color }, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0, userSelect: "none" }}>
+                    <Image src={icon} width={16} height={16} alt="" aria-hidden="true" style={{ filter: `drop-shadow(0 0 4px ${color}40)` }} />
+                    <span style={{ fontSize: "13px", fontFamily: "var(--font-mono)", fontWeight: 700, color: "#fff", letterSpacing: "0.04em" }}>{name}</span>
                   </div>
                 ))}
               </div>
@@ -78,63 +68,87 @@ export default function SocialProof() {
           </div>
         </ScrollReveal>
 
-        {/* Statistics Grid */}
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {STATS.map((stat, idx) => (
-            <ScrollReveal key={idx} delay={idx * 80}>
-              <StatisticCard value={stat.value} label={stat.label} sublabel={stat.sublabel} />
-            </ScrollReveal>
-          ))}
-        </div>
-
-        {/* Testimonials Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start pt-10 border-t border-white/5">
-          
-          {/* Left — Rating summary */}
-          <ScrollReveal>
-            <div className="flex flex-col gap-5 text-left lg:pr-6">
-              <Badge variant="amber">Developer Rated</Badge>
-              <h3 className="text-2xl font-extrabold text-white tracking-tight leading-tight">
-                Loved by UI Engineers and Platform Architects.
-              </h3>
-              <p className="text-xs text-arctic-powder/60 leading-relaxed">
-                Read real logs from engineering leads who deployed our secure AI data automation nodes directly into production clusters.
-              </p>
-
-              {/* Stars + rating */}
-              <div className="flex items-center gap-3 mt-1">
-                <div className="flex text-forsythia text-base">{"★★★★★"}</div>
-                <div className="flex flex-col">
-                  <span className="text-xs font-extrabold text-white tracking-tight">4.92 / 5.0</span>
-                  <span className="text-3xs text-arctic-powder/45 uppercase tracking-wider">Average rating</span>
+        {/* Stats grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px" }}>
+          <style>{`@media(min-width:1024px){.stats-grid{grid-template-columns:repeat(4,1fr)!important}}`}</style>
+          <div className="stats-grid" style={{ display: "contents" }}>
+            {STATS.map((s, i) => (
+              <ScrollReveal key={i} delay={i * 70}>
+                <div className="nm-card" style={{ padding: "28px", height: "100%" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 30px rgba(255,200,1,0.06), var(--shadow-md)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = ""; }}
+                >
+                  <div className="nm-stat-value" style={{ marginBottom: "8px" }}>{s.value}</div>
+                  <div style={{ fontSize: "11px", fontWeight: 700, color: "#FFC801", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "12px" }}>{s.label}</div>
+                  <p style={{ fontSize: "12px", color: "rgba(240,246,243,0.45)", lineHeight: 1.65, paddingTop: "12px", borderTop: "1px solid rgba(255,255,255,0.05)" }}>{s.sub}</p>
                 </div>
-              </div>
-
-              {/* Review count pill */}
-              <div className="inline-flex items-center gap-2 bg-white/[0.04] border border-white/8 rounded-full px-3 py-1.5 w-fit">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-3xs font-mono text-arctic-powder/65">1,200+ verified reviews</span>
-              </div>
-            </div>
-          </ScrollReveal>
-
-          {/* Testimonial cards */}
-          <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-5">
-            {TESTIMONIALS.map((t, idx) => (
-              <ScrollReveal key={idx} delay={idx * 150}>
-                <TestimonialCard
-                  quote={t.quote}
-                  author={t.author}
-                  role={t.role}
-                  company={t.company}
-                  rating={t.rating}
-                />
               </ScrollReveal>
             ))}
           </div>
         </div>
 
-      </Container>
+        {/* Testimonials */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "40px", paddingTop: "40px", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+          <style>{`@media(min-width:1024px){.testi-grid{grid-template-columns:1fr 2fr!important}}`}</style>
+          <div className="testi-grid" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "40px" }}>
+            {/* Left */}
+            <ScrollReveal>
+              <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+                <div className="nm-badge nm-badge-gold" style={{ width: "fit-content" }}>Developer Rated</div>
+                <h3 style={{ fontSize: "clamp(20px, 2.5vw, 26px)", fontWeight: 800, color: "#fff", letterSpacing: "-0.02em", lineHeight: 1.25 }}>
+                  Loved by UI Engineers and Platform Architects.
+                </h3>
+                <p style={{ fontSize: "14px", color: "rgba(240,246,243,0.55)", lineHeight: 1.7 }}>
+                  Read real logs from engineering leads who deployed our secure AI data automation nodes directly into production clusters.
+                </p>
+                {/* Stars */}
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                  <div style={{ fontSize: "18px", color: "#FFC801", letterSpacing: "2px" }}>★★★★★</div>
+                  <div>
+                    <div style={{ fontSize: "14px", fontWeight: 800, color: "#fff" }}>4.92 / 5.0</div>
+                    <div style={{ fontSize: "10px", color: "rgba(240,246,243,0.4)", textTransform: "uppercase", letterSpacing: "0.08em" }}>Average rating</div>
+                  </div>
+                </div>
+                {/* Review pill */}
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "99px", padding: "6px 14px", width: "fit-content" }}>
+                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#4ADE80", animation: "pulse 2s ease-in-out infinite" }} />
+                  <span style={{ fontSize: "11px", fontFamily: "var(--font-mono)", color: "rgba(240,246,243,0.6)" }}>1,200+ verified reviews</span>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Testimonial cards */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "16px" }}>
+              <style>{`@media(min-width:640px){.testi-cards{grid-template-columns:repeat(2,1fr)!important}}`}</style>
+              <div className="testi-cards" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "16px" }}>
+                {TESTIMONIALS.map((t, i) => (
+                  <ScrollReveal key={i} delay={i * 120}>
+                    <div className="nm-card" style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "16px", height: "100%" }}>
+                      <div style={{ fontSize: "32px", color: "rgba(255,200,1,0.15)", fontFamily: "serif", lineHeight: 1, userSelect: "none" }}>&ldquo;</div>
+                      <blockquote style={{ fontSize: "13px", color: "rgba(240,246,243,0.65)", lineHeight: 1.75, flex: 1 }}>
+                        {t.quote}
+                      </blockquote>
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "14px", gap: "12px" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "10px", minWidth: 0 }}>
+                          <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: "linear-gradient(135deg, #0F4455, #5EC8DC)", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", fontWeight: 700, color: "#fff" }}>
+                            {t.author[0]}
+                          </div>
+                          <div style={{ minWidth: 0 }}>
+                            <div style={{ fontSize: "13px", fontWeight: 700, color: "#fff", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{t.author}</div>
+                            <div style={{ fontSize: "11px", color: "rgba(240,246,243,0.4)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{t.role}, {t.company}</div>
+                          </div>
+                        </div>
+                        <div style={{ fontSize: "14px", color: "#FFC801", flexShrink: 0 }}>{"★".repeat(t.rating)}</div>
+                      </div>
+                    </div>
+                  </ScrollReveal>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </section>
   );
 }

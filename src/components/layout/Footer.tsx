@@ -1,143 +1,68 @@
-import Logo from "../shared/Logo";
-import Container from "../shared/Container";
-
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  const year = new Date().getFullYear();
+
+  const cols = [
+    { heading: "Technology", links: ["AI Agent Pipelines", "AI Sandbox Zones", "Telemetry Dashboard"] },
+    { heading: "Platform",   links: ["Subscription Tiers", "System FAQ", "Developer API"] },
+    { heading: "Resources",  links: ["Typography Guides", "Visual Palette", "System Status"] },
+  ];
 
   return (
-    <footer className="w-full border-t border-mystic-mint/10 bg-oceanic-noir text-arctic-powder/70 py-16 transition-all duration-300">
-      <Container>
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-4 lg:gap-16">
-          
-          {/* Logo & Operational Status */}
-          <div className="flex flex-col gap-6 md:col-span-1">
-            <Logo />
-            <p className="text-xs text-arctic-powder/50 leading-relaxed max-w-[240px]">
-              Deploying high-speed autonomous AI data automation pipelines and secure mesh nodes. Engineered for top-tier developer platforms.
-            </p>
-            
-            {/* Operational Status indicator (Premium touch) */}
-            <div className="inline-flex items-center gap-2 text-3xs font-bold uppercase tracking-wider bg-nocturnal-expedition/30 border border-nocturnal-expedition/50 text-mystic-mint w-fit rounded-full px-3 py-1">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-              </span>
-              <span>All Systems Operational</span>
+    <footer
+      style={{
+        background: "var(--bg)",
+        borderTop: "1px solid rgba(255,255,255,0.06)",
+        padding: "64px 0 32px",
+      }}
+    >
+      <div className="nm-container">
+        {/* Top row */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "40px", marginBottom: "48px" }}>
+          <style>{`@media(min-width:768px){.footer-grid{grid-template-columns:1.4fr 1fr 1fr 1fr!important}}`}</style>
+          <div className="footer-grid" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "40px" }}>
+
+            {/* Brand column */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <div style={{ width: "28px", height: "28px", borderRadius: "7px", background: "linear-gradient(135deg, #FFC801 0%, #FF9932 100%)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "13px", fontWeight: 800, color: "#07101A" }}>N</div>
+                <span style={{ fontWeight: 700, fontSize: "14px", letterSpacing: "-0.02em", color: "#fff" }}>NEURAL<span style={{ color: "#FFC801" }}>.mesh</span></span>
+              </div>
+              <p style={{ fontSize: "13px", color: "rgba(240,246,243,0.45)", lineHeight: 1.7, maxWidth: "240px" }}>
+                Deploying high-speed autonomous AI data automation pipelines and secure mesh nodes.
+              </p>
+              <div className="nm-badge nm-badge-green" style={{ width: "fit-content", gap: "6px" }}>
+                <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#4ADE80", animation: "pulse 2s ease-in-out infinite", display: "inline-block" }} />
+                All Systems Operational
+              </div>
             </div>
-          </div>
 
-          {/* Links Column 1: Technology */}
-          <div className="flex flex-col gap-4">
-            <span className="text-2xs font-extrabold uppercase tracking-widest text-forsythia">
-              Technology
-            </span>
-            <nav className="flex flex-col gap-2.5 text-xs font-medium" aria-label="Footer Technology Links">
-              <a
-                href="#features"
-                className="hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-forsythia rounded py-0.5"
-              >
-                AI Agent Pipelines
-              </a>
-              <a
-                href="#features"
-                className="hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-forsythia rounded py-0.5"
-              >
-                AI Sandbox Zones
-              </a>
-              <a
-                href="#features"
-                className="hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-forsythia rounded py-0.5"
-              >
-                Telemetry Dashboard
-              </a>
-            </nav>
-          </div>
+            {/* Link columns */}
+            {cols.map(({ heading, links }) => (
+              <div key={heading} style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                <span style={{ fontSize: "10px", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", color: "#FFC801" }}>{heading}</span>
+                <nav aria-label={`Footer ${heading} Links`} style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                  {links.map(l => (
+                    <a key={l} href="#" className="nm-footer-link">{l}</a>
+                  ))}
+                </nav>
+              </div>
+            ))}
 
-          {/* Links Column 2: Platform */}
-          <div className="flex flex-col gap-4">
-            <span className="text-2xs font-extrabold uppercase tracking-widest text-forsythia">
-              Platform
-            </span>
-            <nav className="flex flex-col gap-2.5 text-xs font-medium" aria-label="Footer Platform Links">
-              <a
-                href="#pricing"
-                className="hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-forsythia rounded py-0.5"
-              >
-                Subscription Tiers
-              </a>
-              <a
-                href="#faq"
-                className="hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-forsythia rounded py-0.5"
-              >
-                System FAQ
-              </a>
-              <a
-                href="#"
-                className="hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-forsythia rounded py-0.5"
-              >
-                Developer API
-              </a>
-            </nav>
           </div>
-
-          {/* Links Column 3: Resources */}
-          <div className="flex flex-col gap-4">
-            <span className="text-2xs font-extrabold uppercase tracking-widest text-forsythia">
-              Resources
-            </span>
-            <nav className="flex flex-col gap-2.5 text-xs font-medium" aria-label="Footer Resources Links">
-              <a
-                href="/docs/fonts.pdf"
-                target="_blank"
-                className="hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-forsythia rounded py-0.5"
-              >
-                Typography Guides
-              </a>
-              <a
-                href="/docs/colorPallet.pdf"
-                target="_blank"
-                className="hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-forsythia rounded py-0.5"
-              >
-                Visual Palette
-              </a>
-              <a
-                href="#"
-                className="hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-forsythia rounded py-0.5"
-              >
-                System Status
-              </a>
-            </nav>
-          </div>
-
         </div>
 
-        {/* Footer Bottom Row */}
-        <div className="mt-16 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-2xs text-arctic-powder/45 gap-4">
-          <div>
-            &copy; {currentYear} NEURAL.mesh Inc. Mapped for the IITB Frontend Battle.
-          </div>
-          <div className="flex gap-6">
-            <a
-              href="#"
-              className="hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-forsythia rounded py-0.5"
-            >
-              Privacy Policy
-            </a>
-            <a
-              href="#"
-              className="hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-forsythia rounded py-0.5"
-            >
-              Terms of Service
-            </a>
-            <a
-              href="#"
-              className="hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-forsythia rounded py-0.5"
-            >
-              Node Security
-            </a>
+        {/* Bottom bar */}
+        <div style={{ borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: "24px", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "12px" }}>
+          <span style={{ fontSize: "12px", color: "rgba(240,246,243,0.35)" }}>
+            © {year} NEURAL.mesh Inc. Mapped for the IITB Frontend Battle.
+          </span>
+          <div style={{ display: "flex", gap: "20px" }}>
+            {["Privacy Policy", "Terms of Service", "Node Security"].map(l => (
+              <a key={l} href="#" className="nm-footer-link" style={{ fontSize: "12px" }}>{l}</a>
+            ))}
           </div>
         </div>
-      </Container>
+      </div>
     </footer>
   );
 }

@@ -14,16 +14,44 @@ export default function Features() {
   return (
     <section
       id="features"
-      className="py-28 bg-oceanic-noir relative overflow-hidden border-t border-mystic-mint/8"
+      className="nm-section"
       aria-labelledby="features-title"
+      style={{ background: "var(--bg)" }}
     >
       {/* Multi-layer glow backdrop */}
-      <div className="absolute top-0 right-0 h-[600px] w-[600px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle at 80% 20%, rgba(17,76,90,0.35) 0%, transparent 65%)" }} aria-hidden="true" />
-      <div className="absolute bottom-0 left-0 h-[500px] w-[500px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle at 20% 80%, rgba(255,153,50,0.1) 0%, transparent 60%)" }} aria-hidden="true" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[400px] w-[400px] rounded-full bg-glow-radial filter blur-[100px] pointer-events-none opacity-30" aria-hidden="true" />
+      <div
+        className="glow-blob glow-blob-teal animate-aurora"
+        style={{
+          width: "600px",
+          height: "600px",
+          top: "0",
+          right: "10%",
+          opacity: 0.3,
+        }}
+        aria-hidden="true"
+      />
+      <div
+        className="glow-blob glow-blob-orange"
+        style={{
+          width: "500px",
+          height: "500px",
+          bottom: "0",
+          left: "10%",
+          opacity: 0.15,
+        }}
+        aria-hidden="true"
+      />
 
-      <div className="container-custom flex flex-col gap-16 relative z-10">
-
+      <div
+        className="nm-container"
+        style={{
+          position: "relative",
+          zIndex: 10,
+          display: "flex",
+          flexDirection: "column",
+          gap: "64px",
+        }}
+      >
         <ScrollReveal>
           <SectionTitle
             id="features-title"
@@ -43,7 +71,6 @@ export default function Features() {
             <BentoGrid activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
           </ScrollReveal>
         )}
-
       </div>
     </section>
   );

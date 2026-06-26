@@ -79,7 +79,7 @@ export default function FeatureAccordion({
 
   return (
     <div 
-      className="flex flex-col gap-4 border-t border-white/10 pt-6"
+      style={{ display: "flex", flexDirection: "column", gap: "16px", borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "24px" }}
       role="tablist"
       aria-label="Features Accordion List"
     >
@@ -89,9 +89,16 @@ export default function FeatureAccordion({
         return (
           <div
             key={item.id}
-            className={`border-b border-mystic-mint/10 pb-4 transition-all duration-300 ${
-              isOpen ? "bg-white/[0.02] p-4 rounded-2xl border-white/10 shadow-premium-inner" : ""
-            }`}
+            style={{
+              borderBottom: "1px solid rgba(200, 224, 216, 0.08)",
+              paddingBottom: "16px",
+              transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+              background: isOpen ? "rgba(255,255,255,0.02)" : "transparent",
+              padding: isOpen ? "16px" : "0 0 16px 0",
+              borderRadius: isOpen ? "16px" : "0",
+              border: isOpen ? "1px solid rgba(255,255,255,0.08)" : "",
+              boxShadow: isOpen ? "inset 0 1px 0 rgba(255,255,255,0.02), 0 8px 24px rgba(0,0,0,0.2)" : "none",
+            }}
           >
             <h3>
               <button
@@ -99,33 +106,59 @@ export default function FeatureAccordion({
                 onClick={() => setActiveIndex(idx)}
                 onKeyDown={(e) => handleKeyDown(e, idx)}
                 type="button"
-                className="flex w-full items-center justify-between py-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forsythia rounded-md"
+                style={{
+                  display: "flex",
+                  width: "100%",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "12px 0",
+                  background: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                  color: isOpen ? "#FFC801" : "#fff",
+                  outline: "none",
+                }}
                 aria-expanded={isOpen}
                 aria-controls={`feature-panel-${idx}`}
                 role="tab"
                 aria-selected={isOpen}
               >
-                <div className="flex items-center gap-3.5">
-                  <div className={`inline-flex h-9 w-9 items-center justify-center rounded-lg border transition-colors ${
-                    isOpen ? "bg-nocturnal-expedition border-forsythia/30 text-forsythia" : "bg-white/5 border-white/5 text-arctic-powder/60"
-                  }`}>
-                    <Image src={item.iconPath} alt="" width={18} height={18} className="h-4.5 w-4.5" aria-hidden="true" />
+                <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+                  <div style={{
+                    display: "inline-flex",
+                    height: "36px",
+                    width: "36px",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "8px",
+                    border: "1px solid rgba(255,255,255,0.05)",
+                    background: isOpen ? "#0F4455" : "rgba(255,255,255,0.04)",
+                    color: isOpen ? "#FFC801" : "rgba(240,246,243,0.6)",
+                    transition: "all 0.2s"
+                  }}>
+                    <Image src={item.iconPath} alt="" width={18} height={18} style={{ height: "18px", width: "18px", filter: isOpen ? "drop-shadow(0 0 4px rgba(255,200,1,0.2))" : "none" }} aria-hidden="true" />
                   </div>
-                  <span className={`text-sm font-bold tracking-tight transition-colors ${
-                    isOpen ? "text-forsythia" : "text-white hover:text-forsythia"
-                  }`}>
+                  <span style={{
+                    fontSize: "14px",
+                    fontWeight: 700,
+                    letterSpacing: "-0.01em",
+                    transition: "color 0.2s"
+                  }}>
                     {item.title}
                   </span>
                 </div>
 
-                <span className="ml-6 flex items-center text-arctic-powder/60">
+                <span style={{ marginLeft: "24px", display: "flex", alignItems: "center", color: "rgba(240,246,243,0.5)" }}>
                   <svg
-                    className={`h-4.5 w-4.5 transform transition-transform duration-200 ${
-                      isOpen ? "rotate-180" : "rotate-0"
-                    }`}
+                    style={{
+                      height: "18px",
+                      width: "18px",
+                      transition: "transform 0.2s",
+                      transform: isOpen ? "rotate(180deg)" : "rotate(0deg)"
+                    }}
                     fill="none"
                     viewBox="0 0 24 24"
-                    strokeWidth="2"
+                    strokeWidth="2.5"
                     stroke="currentColor"
                     aria-hidden="true"
                   >
@@ -140,24 +173,44 @@ export default function FeatureAccordion({
               id={`feature-panel-${idx}`}
               role="tabpanel"
               aria-labelledby={`accordion-btn-${idx}`}
-              className={`accordion-content ${isOpen ? "open" : ""}`}
+              className={`accordion-wrap${isOpen ? " open" : ""}`}
             >
               <div className="accordion-inner">
-                <div className="pt-2 pb-3 px-1 text-xs text-arctic-powder/75 leading-relaxed flex flex-col gap-4">
+                <div style={{
+                  padding: "8px 4px 12px 4px",
+                  fontSize: "12px",
+                  color: "rgba(240,246,243,0.75)",
+                  lineHeight: 1.7,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "16px"
+                }}>
                   <p>{item.description}</p>
                   
-                  {/* Visual detail elements rendered inside the expanded panel on mobile */}
+                  {/* Visual details */}
                   {idx === 0 && (
-                    <div className="w-full bg-white/5 border border-white/5 rounded-xl p-3.5 font-mono text-3xs text-arctic-powder/55 flex flex-col gap-2">
-                      <div className="flex justify-between border-b border-white/5 pb-1">
+                    <div style={{
+                      width: "100%",
+                      background: "rgba(0,0,0,0.2)",
+                      border: "1px solid rgba(255,255,255,0.05)",
+                      borderRadius: "12px",
+                      padding: "14px",
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "10px",
+                      color: "rgba(240,246,243,0.55)",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "8px"
+                    }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "4px" }}>
                         <span>AI_AGENT: AGI-418</span>
-                        <span className="text-mystic-mint font-semibold">● STABLE_FEED</span>
+                        <span style={{ color: "#C8E0D8", fontWeight: 600 }}>● STABLE_FEED</span>
                       </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <div className="bg-oceanic-noir/50 p-2 rounded-lg">
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
+                        <div style={{ background: "rgba(0,0,0,0.15)", padding: "8px", borderRadius: "6px" }}>
                           <span>Inference: 0.42ms</span>
                         </div>
-                        <div className="bg-oceanic-noir/50 p-2 rounded-lg">
+                        <div style={{ background: "rgba(0,0,0,0.15)", padding: "8px", borderRadius: "6px" }}>
                           <span>Agent Load: 12.5%</span>
                         </div>
                       </div>
@@ -165,24 +218,45 @@ export default function FeatureAccordion({
                   )}
 
                   {idx === 2 && (
-                    <div className="flex flex-col gap-2.5 bg-white/5 border border-white/5 rounded-xl p-3.5 font-mono text-3xs text-arctic-powder/55">
-                      <div className="flex justify-between text-4xs">
+                    <div style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "10px",
+                      background: "rgba(0,0,0,0.2)",
+                      border: "1px solid rgba(255,255,255,0.05)",
+                      borderRadius: "12px",
+                      padding: "14px",
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "10px",
+                      color: "rgba(240,246,243,0.55)"
+                    }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", fontSize: "9px" }}>
                         <span>CHUNK_SIZE</span>
-                        <span className="text-forsythia font-bold">4096 TOKENS</span>
+                        <span style={{ color: "#FFC801", fontWeight: "bold" }}>4096 TOKENS</span>
                       </div>
-                      <div className="h-1 bg-white/10 rounded-full overflow-hidden">
-                        <div className="h-full bg-forsythia w-[90%]" />
+                      <div style={{ height: "4px", background: "rgba(255,255,255,0.1)", borderRadius: "99px", overflow: "hidden" }}>
+                        <div style={{ height: "100%", background: "#FFC801", width: "90%" }} />
                       </div>
                     </div>
                   )}
 
                   {/* Metadata tags */}
-                  <div className="flex items-center gap-2 pt-2 text-3xs font-mono text-forsythia uppercase font-bold">
+                  <div style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    paddingTop: "8px",
+                    fontSize: "10px",
+                    fontFamily: "var(--font-mono)",
+                    color: "#FFC801",
+                    textTransform: "uppercase",
+                    fontWeight: 700
+                  }}>
                     <span>{item.tagLeft}</span>
                     {item.tagRight && (
                       <>
-                        <span className="text-arctic-powder/30">&bull;</span>
-                        <span className="text-mystic-mint">{item.tagRight}</span>
+                        <span style={{ color: "rgba(255,255,255,0.15)" }}>&bull;</span>
+                        <span style={{ color: "#C8E0D8" }}>{item.tagRight}</span>
                       </>
                     )}
                   </div>

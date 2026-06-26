@@ -10,6 +10,7 @@ interface FeatureCardProps {
   tagLeft?: string;
   className?: string;
   children?: React.ReactNode; // For nested visual mockups
+  style?: React.CSSProperties;
 }
 
 function FeatureCard({
@@ -20,10 +21,12 @@ function FeatureCard({
   tagLeft,
   className = "",
   children,
+  style,
 }: FeatureCardProps) {
   return (
     <Card
       variant="bordered"
+      style={style}
       className={`flex flex-col justify-between p-6 hover:border-forsythia/20 hover:scale-[1.01] ${className}`}
     >
       <div className="flex flex-col gap-4">

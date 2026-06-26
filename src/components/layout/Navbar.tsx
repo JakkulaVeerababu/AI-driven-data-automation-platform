@@ -2,170 +2,130 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Logo from "../shared/Logo";
-import Button from "../shared/Button";
-import Container from "../shared/Container";
+
+function Logo() {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+      <div style={{
+        width: "30px", height: "30px", borderRadius: "8px",
+        background: "linear-gradient(135deg, #FFC801 0%, #FF9932 100%)",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        fontSize: "14px", fontWeight: 800, color: "#07101A",
+      }}>N</div>
+      <span style={{ fontWeight: 700, fontSize: "15px", letterSpacing: "-0.02em", color: "#fff" }}>
+        NEURAL<span style={{ color: "#FFC801" }}>.mesh</span>
+      </span>
+    </div>
+  );
+}
+
+const NAV_LINKS = [
+  { href: "#features", label: "Features",  id: "features" },
+  { href: "#pricing",  label: "Plans",      id: "pricing"  },
+  { href: "#faq",      label: "FAQ",        id: "faq"      },
+];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
+  const [activeId, setActiveId] = useState("");
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
-      const sections = ["features", "pricing", "faq"];
-      for (const id of sections) {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 32);
+      for (const { id } of NAV_LINKS) {
         const el = document.getElementById(id);
         if (el) {
-          const { top } = el.getBoundingClientRect();
-          if (top < 120 && top > -el.offsetHeight + 120) {
-            setActiveSection(id);
-          }
+          const rect = el.getBoundingClientRect();
+          if (rect.top < 130 && rect.bottom > 80) { setActiveId(id); break; }
         }
       }
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navLinks = [
-    { href: "#features", label: "Features",  id: "features" },
-    { href: "#pricing",  label: "Plans",      id: "pricing"  },
-    { href: "#faq",      label: "FAQ",        id: "faq"      },
-  ];
-
   return (
-    <header
-      role="banner"
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-        scrolled
-          ? "border-b border-white/8 bg-oceanic-noir/85 backdrop-blur-xl shadow-premium-md"
-          : "border-b border-transparent bg-transparent"
-      }`}
-    >
-      <Container>
-        <div style={{ display: "flex", height: "72px", alignItems: "center", justifyContent: "space-between" }}>
-
-          {/* Logo */}
-          <Link
-            href="/"
-            className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forsythia rounded-lg shrink-0"
-            aria-label="NEURAL.mesh Home"
-          >
+    <header className={`nm-navbar${scrolled ? " scrolled" : ""}`} role="banner">
+      <div className="nm-container">
+        <div className="nm-navbar-inner">
+          <Link href="/" aria-label="NEURAL.mesh Home" style={{ textDecoration: "none" }}>
             <Logo />
           </Link>
 
-          {/* Desktop Nav — using inline styles to guarantee spacing in Tailwind v4 */}
-          <nav
-            className="hidden md:flex"
-            style={{ alignItems: "center", gap: "4px" }}
-            aria-label="Main Navigation"
-          >
-            {navLinks.map(({ href, label, id }) => (
+          {/* Desktop nav */}
+          <nav aria-label="Main Navigation" className="md:flex hidden" style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            {NAV_LINKS.map(({ href, label, id }) => (
               <Link
                 key={id}
                 href={href}
-                style={{ position: "relative", display: "inline-flex", alignItems: "center", padding: "6px 14px", borderRadius: "8px", fontSize: "14px", fontWeight: 500, textDecoration: "none", transition: "all 0.2s", color: activeSection === id ? "#F1F6F4" : "rgba(241,246,244,0.65)", background: activeSection === id ? "rgba(255,255,255,0.05)" : "transparent" }}
-                className="hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forsythia group"
+                className={`nm-nav-link${activeId === id ? " active" : ""}`}
               >
                 {label}
-                <span
-                  style={{
-                    position: "absolute",
-                    bottom: "4px",
-                    left: "14px",
-                    right: "14px",
-                    height: "1.5px",
-                    borderRadius: "999px",
-                    background: "#FFC801",
-                    transformOrigin: "left",
-                    transform: activeSection === id ? "scaleX(1)" : "scaleX(0)",
-                    opacity: activeSection === id ? 1 : 0,
-                    transition: "transform 0.25s, opacity 0.25s",
-                  }}
-                  className="group-hover:!scale-x-100 group-hover:!opacity-100"
-                />
               </Link>
             ))}
           </nav>
 
           {/* Desktop CTAs */}
-          <div
-            className="hidden md:flex"
-            style={{ alignItems: "center", gap: "12px" }}
-          >
-            <Link
-              href="#pricing"
-              style={{ display: "inline-flex" }}
-              className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forsythia rounded-xl"
-            >
-              <Button variant="secondary" size="sm">Pricing</Button>
+          <div className="nm-ctas md:flex" style={{ display: "flex" }}>
+            <Link href="#pricing" style={{ textDecoration: "none" }}>
+              <button className="nm-btn nm-btn-secondary nm-btn-sm">Pricing</button>
             </Link>
-            <Link
-              href="#cta"
-              style={{ display: "inline-flex" }}
-              className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forsythia rounded-xl"
-            >
-              <Button variant="primary" size="sm">Get Started</Button>
+            <Link href="#cta" style={{ textDecoration: "none" }}>
+              <button className="nm-btn nm-btn-primary nm-btn-sm">Get Started</button>
             </Link>
-          </div>
 
-          {/* Mobile Hamburger */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-arctic-powder hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forsythia md:hidden transition-colors"
-            aria-controls="mobile-menu"
-            aria-expanded={isOpen}
-            aria-label="Toggle navigation menu"
-          >
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" aria-hidden="true">
-              {isOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-              )}
-            </svg>
-          </button>
+            {/* Mobile hamburger */}
+            <button
+              onClick={() => setIsOpen(o => !o)}
+              aria-label="Toggle menu"
+              aria-expanded={isOpen}
+              aria-controls="mobile-nav"
+              style={{
+                display: "none",
+                width: "40px", height: "40px", border: "1px solid rgba(255,255,255,0.1)",
+                borderRadius: "10px", background: "rgba(255,255,255,0.04)",
+                color: "#F0F6F3", cursor: "pointer", alignItems: "center", justifyContent: "center",
+              }}
+              className="hidden"
+            >
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                {isOpen
+                  ? <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                  : <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />}
+              </svg>
+            </button>
+          </div>
         </div>
-      </Container>
+      </div>
 
       {/* Mobile Drawer */}
-      <div
-        id="mobile-menu"
-        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-          isOpen
-            ? "border-b border-white/8 bg-oceanic-noir/95 backdrop-blur-2xl"
-            : ""
-        }`}
-        style={{ maxHeight: isOpen ? "400px" : "0px" }}
-        aria-hidden={!isOpen}
-      >
-        <nav
-          style={{ display: "flex", flexDirection: "column", gap: "4px", padding: "12px 24px 24px" }}
-          aria-label="Mobile Navigation"
-        >
-          {navLinks.map(({ href, label, id }) => (
+      <div id="mobile-nav" className={`nm-mobile-menu${isOpen ? " open" : ""}`} aria-hidden={!isOpen}>
+        <div style={{ padding: "12px 24px 28px", display: "flex", flexDirection: "column", gap: "4px" }}>
+          {NAV_LINKS.map(({ href, label, id }) => (
             <Link
               key={id}
               href={href}
               onClick={() => setIsOpen(false)}
-              style={{ display: "block", fontSize: "15px", fontWeight: 600, color: "rgba(241,246,244,0.85)", padding: "12px", borderRadius: "8px", borderBottom: "1px solid rgba(255,255,255,0.05)", textDecoration: "none", transition: "color 0.2s" }}
-              className="hover:text-white hover:bg-white/5"
+              style={{
+                display: "block", padding: "12px", borderRadius: "8px",
+                fontSize: "15px", fontWeight: 600, color: "rgba(240,246,243,0.8)",
+                textDecoration: "none", transition: "color 0.2s",
+                borderBottom: "1px solid rgba(255,255,255,0.05)",
+              }}
             >
               {label}
             </Link>
           ))}
           <div style={{ display: "flex", flexDirection: "column", gap: "10px", paddingTop: "16px" }}>
-            <Link href="#pricing" onClick={() => setIsOpen(false)} style={{ display: "block" }}>
-              <Button variant="secondary" size="md" fullWidth>Pricing</Button>
+            <Link href="#pricing" onClick={() => setIsOpen(false)} style={{ display: "block", textDecoration: "none" }}>
+              <button className="nm-btn nm-btn-secondary" style={{ width: "100%", justifyContent: "center" }}>Pricing</button>
             </Link>
-            <Link href="#cta" onClick={() => setIsOpen(false)} style={{ display: "block" }}>
-              <Button variant="primary" size="md" fullWidth>Get Started</Button>
+            <Link href="#cta" onClick={() => setIsOpen(false)} style={{ display: "block", textDecoration: "none" }}>
+              <button className="nm-btn nm-btn-primary" style={{ width: "100%", justifyContent: "center" }}>Get Started</button>
             </Link>
           </div>
-        </nav>
+        </div>
       </div>
     </header>
   );

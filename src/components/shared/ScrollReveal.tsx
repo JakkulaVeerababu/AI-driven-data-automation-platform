@@ -6,12 +6,14 @@ interface ScrollRevealProps {
   children: React.ReactNode;
   delay?: number; // millisecond delay before reveal animation starts
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export default function ScrollReveal({
   children,
   delay = 0,
   className = "",
+  style,
 }: ScrollRevealProps) {
   const [isRevealed, setIsRevealed] = useState(false);
   const elementRef = useRef<HTMLDivElement>(null);
@@ -59,6 +61,7 @@ export default function ScrollReveal({
   return (
     <div
       ref={elementRef}
+      style={style}
       className={`reveal-on-scroll ${isRevealed ? "revealed" : ""} ${className}`}
     >
       {children}

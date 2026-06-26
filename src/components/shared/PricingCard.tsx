@@ -22,7 +22,16 @@ interface PricingCardProps {
 function BillingCycleLabel() {
   const { billingCycle } = usePricingStoreValues();
   return (
-    <span className="ml-1.5 text-2xs text-arctic-powder/45 uppercase font-semibold tracking-wide">
+    <span
+      style={{
+        marginLeft: "8px",
+        fontSize: "11px",
+        color: "rgba(240, 246, 243, 0.45)",
+        textTransform: "uppercase",
+        fontWeight: 700,
+        letterSpacing: "0.06em",
+      }}
+    >
       / {billingCycle === "monthly" ? "mo" : "mo equiv"}
     </span>
   );
@@ -38,15 +47,36 @@ export default function PricingCard({
   buttonText = "Select Plan",
   className = "",
 }: PricingCardProps) {
+  
+  const popularCardStyle = isPopular
+    ? {
+        borderColor: "rgba(255, 200, 1, 0.25)",
+        boxShadow: "0 0 40px rgba(255, 200, 1, 0.08), inset 0 0 0 1px rgba(255, 200, 1, 0.1)",
+        transform: "scale(1.02)",
+      }
+    : {
+        borderColor: "rgba(255, 255, 255, 0.06)",
+      };
+
+  const cardStyle = {
+    position: "relative" as const,
+    display: "flex",
+    flexDirection: "column" as const,
+    justifyContent: "space-between",
+    overflow: "hidden",
+    height: "100%",
+    borderRadius: "24px",
+    background: "var(--card)",
+    transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+    ...popularCardStyle,
+  };
+
   return (
     <Card
       variant="bordered"
       gradientBorder={isPopular}
-      className={`group relative flex flex-col justify-between overflow-hidden transition-all duration-300 ${
-        isPopular
-          ? "border-forsythia/25 bento-popular-glow scale-[1.02] md:scale-[1.03]"
-          : "border-white/6 hover:border-white/12"
-      } ${className}`}
+      style={cardStyle}
+      className={`group ${className}`}
     >
       {/* Popular glow overlay */}
       {isPopular && (
@@ -61,44 +91,116 @@ export default function PricingCard({
 
       {/* Popular badge pill */}
       {isPopular && (
-        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
+        <div
+          style={{
+            position: "absolute",
+            top: "-14px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 10,
+          }}
+        >
           <Badge variant="amber">Most Popular</Badge>
         </div>
       )}
 
-      <div className="flex flex-col gap-7 p-8 text-left relative z-10">
-
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "28px",
+          padding: "32px",
+          textAlign: "left",
+          position: "relative",
+          zIndex: 10,
+        }}
+      >
         {/* Plan header */}
-        <div className="flex flex-col gap-2">
+        <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
           {highlight && (
-            <span className="text-3xs font-extrabold uppercase tracking-[0.15em] text-forsythia/80">
+            <span
+              style={{
+                fontSize: "9px",
+                fontWeight: 800,
+                textTransform: "uppercase",
+                letterSpacing: "0.15em",
+                color: "#FFC801",
+                display: "block",
+              }}
+            >
               {highlight}
             </span>
           )}
-          <h3 className="text-lg font-extrabold text-white tracking-tight">{name}</h3>
-          <p className="text-2xs text-arctic-powder/55 leading-relaxed min-h-[36px]">
+          <h3
+            style={{
+              fontSize: "20px",
+              fontWeight: 800,
+              color: "#ffffff",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            {name}
+          </h3>
+          <p
+            style={{
+              fontSize: "12px",
+              color: "rgba(240, 246, 243, 0.55)",
+              lineHeight: 1.65,
+              minHeight: "54px",
+            }}
+          >
             {description}
           </p>
         </div>
 
         {/* Price row — leaf-rendered, no global reflow */}
-        <div className="flex items-baseline border-y border-white/5 py-5">
+        <div
+          style={{
+            display: "flex",
+            alignItems: "baseline",
+            borderTop: "1px solid rgba(255,255,255,0.06)",
+            borderBottom: "1px solid rgba(255,255,255,0.06)",
+            padding: "20px 0",
+          }}
+        >
           <PriceDisplay basePriceUSD={basePriceUSD} />
           <BillingCycleLabel />
         </div>
 
         {/* Feature list */}
         <ul
-          className="flex flex-col gap-3 text-2xs text-arctic-powder/75"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "14px",
+            listStyle: "none",
+            padding: 0,
+            margin: 0,
+          }}
           aria-label={`Features included in ${name}`}
         >
           {features.map((feature, idx) => (
-            <li key={idx} className="flex items-start gap-2.5">
+            <li
+              key={idx}
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: "10px",
+                fontSize: "12px",
+                color: "rgba(240, 246, 243, 0.75)",
+              }}
+            >
               <svg
-                className={`h-4 w-4 shrink-0 mt-[1px] ${isPopular ? "text-forsythia" : "text-mystic-mint/70"}`}
+                style={{
+                  height: "16px",
+                  width: "16px",
+                  flexShrink: 0,
+                  marginTop: "2px",
+                  color: isPopular ? "#FFC801" : "rgba(200, 224, 216, 0.7)",
+                }}
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth="2.5"
+                strokeWidth="2.8"
                 stroke="currentColor"
                 aria-hidden="true"
               >
@@ -111,7 +213,7 @@ export default function PricingCard({
       </div>
 
       {/* CTA */}
-      <div className="px-8 pb-8 relative z-10">
+      <div style={{ padding: "0 32px 32px 32px", position: "relative", zIndex: 10 }}>
         <Button
           variant={isPopular ? "primary" : "secondary"}
           fullWidth

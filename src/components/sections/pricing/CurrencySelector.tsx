@@ -7,8 +7,28 @@ export default function CurrencySelector() {
   const { currency } = usePricingStoreValues();
   const currencies: Currency[] = ["USD", "INR", "EUR"];
 
+  const containerStyle = {
+    display: "flex",
+    gap: "8px",
+    alignItems: "center",
+  };
+
+  const getButtonStyle = (isActive: boolean) => ({
+    background: isActive ? "rgba(255, 255, 255, 0.08)" : "transparent",
+    color: isActive ? "#FFC801" : "rgba(240, 246, 243, 0.55)",
+    border: isActive ? "1px solid rgba(255, 255, 255, 0.18)" : "1px solid rgba(255, 255, 255, 0.04)",
+    padding: "6px 14px",
+    fontSize: "11px",
+    fontFamily: "var(--font-mono)",
+    fontWeight: 700,
+    borderRadius: "6px",
+    cursor: "pointer",
+    transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+    outline: "none",
+  });
+
   return (
-    <div className="flex gap-2" aria-label="Select pricing currency">
+    <div style={containerStyle} aria-label="Select pricing currency">
       {currencies.map((cur) => {
         const isActive = currency === cur;
 
@@ -17,13 +37,21 @@ export default function CurrencySelector() {
             key={cur}
             onClick={() => pricingStore.setCurrency(cur)}
             type="button"
-            className={`px-3.5 py-1 text-2xs font-mono font-bold rounded-md border transition-all duration-200 focus-visible:ring-2 focus-visible:ring-forsythia focus-visible:ring-offset-2 focus-visible:ring-offset-oceanic-noir ${
-              isActive
-                ? "bg-white/10 text-forsythia border-white/20"
-                : "bg-transparent text-arctic-powder/60 border-white/5 hover:border-white/20 hover:text-white"
-            }`}
+            style={getButtonStyle(isActive)}
             aria-pressed={isActive}
             aria-label={`Show pricing in ${cur}`}
+            onMouseEnter={e => {
+              if (!isActive) {
+                e.currentTarget.style.color = "#fff";
+                e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.15)";
+              }
+            }}
+            onMouseLeave={e => {
+              if (!isActive) {
+                e.currentTarget.style.color = "rgba(240, 246, 243, 0.55)";
+                e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.04)";
+              }
+            }}
           >
             {cur}
           </button>
